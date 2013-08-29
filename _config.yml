@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://vshjxyz.github.io
-title: Code rage 
+title: Code rage
 subtitle: Puking lines of code from time to time
 author: Luca Del Bianco
-simple_search: 
+simple_search:
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -90,7 +90,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: coderage
 disqus_show_comment_count: false
 
 # Google Analytics
