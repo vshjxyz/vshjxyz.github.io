@@ -12,6 +12,8 @@ $type-border: #ddd !default;
 /* General rules */
 body {
   @include background-image(radial-gradient(center center, circle cover, darken($body-bg, 12%), $body-bg));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1 {

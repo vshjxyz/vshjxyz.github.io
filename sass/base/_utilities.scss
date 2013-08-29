@@ -18,3 +18,7 @@
 .clearfix {
     *zoom: 1;
 }
+
+@mixin reset-shadow-box() {
+  @include shadow-box(0px, 0px, 0px);
+}

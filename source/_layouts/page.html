@@ -4,9 +4,6 @@ layout: default
 
 <div>
 <article role="article" class="post">
-  {% unless page.sharing == false %}
-    {% include post/sharing.html %}
-  {% endunless %}
   {% if page.title %}
   <header>
     <h2 class="entry-title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h2>
@@ -14,6 +11,9 @@ layout: default
   </header>
   {% endif %}
   {{ content }}
+  {% unless page.sharing == false %}
+    {% include post/sharing.html %}
+  {% endunless %}
   {% unless page.footer == false %}
     <footer>
       {% if page.date or page.author %}<p class="meta">

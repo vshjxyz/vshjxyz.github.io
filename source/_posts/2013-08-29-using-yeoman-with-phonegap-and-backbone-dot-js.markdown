@@ -20,6 +20,8 @@ OK, OK, use the following steps to setup all the base things needed to correctly
 
 **NOTE**: I've used the Phonegap 2.7.0 version for this example app, I'm sure that you'll figure out how to make it work for Phonegap 3+ (afaik it's easy).
 
+<!--more-->
+
 The Setup
 ---------
 
@@ -138,18 +140,18 @@ If you managed to do everything in the correct way, let's test the mudafucka!
 After *ALL* these passages, you should be able to use the `grunt server` command from the `Hello` folder to use Yeoman in the browser
 along with Ripple. You should see something like this:
 
-{% img center /images/using-yeoman-with-phonegap/ripple.png 'App-preview' 'The base app with Ripple in Chrome' %}
+{% imgcap center /images/using-yeoman-with-phonegap/ripple.png The base app with Ripple in Chrome %}
 
 The JS console should show ~this:
 
-{% img center /images/using-yeoman-with-phonegap/debug.png 'JS-console' 'The JS console screenshot' %}
+[{% imgcap center /images/using-yeoman-with-phonegap/debug.png 400 40 The JS console screenshot - click to zoom %}](/images/using-yeoman-with-phonegap/debug.png)
 
 Notice the `WE ARE IN DEBUG` part that indicates the flow of the code. If we launch a `grunt --force` from the `Hello` folder, we will not have
 all the code compiled in the assets/www folder of our Android project.
 
 Just use Eclipse and open the `hello_android` folder as an existing Android project and launch it with an emulator or your phone and you should see these lines:
 
-{% img center /images/using-yeoman-with-phonegap/logcat.png 650 'Logcat' 'The logcat screenshot' %}
+[{% imgcap center /images/using-yeoman-with-phonegap/logcat.png 400 111 The logcat screenshot - click to zoom  %}](/images/using-yeoman-with-phonegap/logcat.png)
 
 As you can see, the code followed another flow in comparison with the webapp. In the end these passages allow you to have this kind of workflow:
 
