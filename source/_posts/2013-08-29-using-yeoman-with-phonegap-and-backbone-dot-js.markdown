@@ -122,6 +122,9 @@ grunt.registerTask('build', [
 ]);
 {% endcodeblock %}
 
+Let's write a basic main.coffee that allow us to have two different behaviour if we are browsing from Chrome (for debug purposes) or directly from the app:
+{% include_code main.coffee lang:coffeescript %}
+
 Finally, create an empty `cordova_plugins.json` in the root of the `app` folder as required by Phonegap (for cross-domain issues if I remember well)
 {% codeblock lang:bash %}
 touch app/cordova_plugins.json
