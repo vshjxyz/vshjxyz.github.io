@@ -9,7 +9,7 @@
   <meta name="author" content="Luca Del Bianco">
 
   
-  <meta name="description" content="Tweet Using Yeoman With Phonegap and Backbone.js 29/08/2013 Being at µForge, we had to face some serious problems trying to fix and use a correct &hellip;">
+  <meta name="description" content="Using Yeoman With Phonegap and Backbone.js 29/08/2013 Being at µForge, we had to face some serious problems trying to fix and use a correct workflow &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,16 +84,6 @@
   </header>
   <section id="main">
     <article class="post">
-  <div class="sharing-box">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/" data-via="vshjxyz" data-counturl="http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/" data-size="large">Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-</div>
-
   
   <header>
     
@@ -133,6 +123,9 @@ It also comunicates with a Django server that has an API built using Tastypie to
 <p>OK, OK, use the following steps to setup all the base things needed to correctly build a web app with Yeoman using a single Gruntfile:</p>
 
 <p><strong>NOTE</strong>: I&rsquo;ve used the Phonegap 2.7.0 version for this example app, I&rsquo;m sure that you&rsquo;ll figure out how to make it work for Phonegap 3+ (afaik it&rsquo;s easy).</p>
+
+<!--more-->
+
 
 <h2>The Setup</h2>
 
@@ -407,18 +400,18 @@ an apparently random order (so it&rsquo;s a huge problem if you&rsquo;re using B
 <p>After <em>ALL</em> these passages, you should be able to use the <code>grunt server</code> command from the <code>Hello</code> folder to use Yeoman in the browser
 along with Ripple. You should see something like this:</p>
 
-<p><img class="center" src="/images/using-yeoman-with-phonegap/ripple.png" title="App-preview" alt="The base app with Ripple in Chrome"></p>
+<p><span class='caption-wrapper center'><img class='caption' src='/images/using-yeoman-with-phonegap/ripple.png' width='' height='' title='The base app with Ripple in Chrome'><span class='caption-text'>The base app with Ripple in Chrome</span></span></p>
 
 <p>The JS console should show ~this:</p>
 
-<p><img class="center" src="/images/using-yeoman-with-phonegap/debug.png" title="JS-console" alt="The JS console screenshot"></p>
+<p><a href="/images/using-yeoman-with-phonegap/debug.png"><span class='caption-wrapper center'><img class='caption' src='/images/using-yeoman-with-phonegap/debug.png' width='400' height='40' title='The JS console screenshot - click to zoom'><span class='caption-text'>The JS console screenshot &ndash; click to zoom</span></span></a></p>
 
 <p>Notice the <code>WE ARE IN DEBUG</code> part that indicates the flow of the code. If we launch a <code>grunt --force</code> from the <code>Hello</code> folder, we will not have
 all the code compiled in the assets/www folder of our Android project.</p>
 
 <p>Just use Eclipse and open the <code>hello_android</code> folder as an existing Android project and launch it with an emulator or your phone and you should see these lines:</p>
 
-<p><img class="center" src="/images/using-yeoman-with-phonegap/logcat.png" width="650" title="Logcat" alt="The logcat screenshot"></p>
+<p><a href="/images/using-yeoman-with-phonegap/logcat.png"><span class='caption-wrapper center'><img class='caption' src='/images/using-yeoman-with-phonegap/logcat.png' width='400' height='111' title='The logcat screenshot - click to zoom'><span class='caption-text'>The logcat screenshot &ndash; click to zoom</span></span></a></p>
 
 <p>As you can see, the code followed another flow in comparison with the webapp. In the end these passages allow you to have this kind of workflow:</p>
 
@@ -433,6 +426,16 @@ all the code compiled in the assets/www folder of our Android project.</p>
 <p>I&rsquo;m sure that there are some simplier ways to achieve this but right now this kind of workflow is still mainly unused from the mass. I personally digg too much the livereload advantages along with the ability to debug without the need to place thousands of <code>console.log</code>. Keep also in mind that these libraries are in continue development so its pretty hard to find the right way to do things. <strong>ENJOY!</strong></p>
 
 
+
+  <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/" data-via="vshjxyz" data-counturl="http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/" data-size="large">Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
 
 </article>
 
