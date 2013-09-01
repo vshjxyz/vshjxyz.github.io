@@ -76,6 +76,9 @@ With [Compass](http://compass-style.org/) I can use one of their mixin to super 
 {% codeblock lang:scss %}
 // Inside the previous code ...
 &.full-article {
+    // This is needed for Firefox and Opera (afaik)
+    // Because they can't perform a transition from auto to N pixels
+    top: 0;
     background-color: rgba(170,170,170,0.2);
     // This line will tell which property has to translate
     @include transition-property(top);

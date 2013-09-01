@@ -41,6 +41,7 @@
             height: $height;
             line-height: $height;
             &.full-article {
+                top: 0;
                 background-color: rgba(170,170,170,0.2);
                 @include transition-property(top);
                 @include transition-duration(0.5s);
