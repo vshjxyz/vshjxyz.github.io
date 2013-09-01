@@ -3,7 +3,7 @@ layout: post
 title: "Using Yeoman with Phonegap and Backbone.js"
 date: 2013-08-29 10:32
 comments: true
-categories: [programming]
+categories: [programming,backend]
 keywords: programming,coding,yeoman,phonegap,jquery,mobile,backbone
 description: How to configure Yeomain with Phonegap and Backbone.js
 ---

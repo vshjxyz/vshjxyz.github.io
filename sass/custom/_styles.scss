@@ -10,11 +10,14 @@
     }
 }
 
-section.comments {
-    padding-right: 50px;
+#menu {
+    i {
+        font-size: 20px;
+    }
 }
 
 @mixin right-article-padding($width) {
+    section.comments,
     article.post h2, 
     article.post p,
     article.post ol,
@@ -52,14 +55,15 @@ section.comments {
     }
 }
 
+@include article-footer(30px);
+
 // Short screen
 @media only screen and (max-height: 650px) {
-    @include article-footer(25px);
     @include right-article-padding(10px);
     article footer {
         padding: 0;
         div.full-article {
-            top: -25px;
+            top: -30px;
         }
     }
 }
@@ -75,6 +79,10 @@ section.comments {
             top: -40px;
         }
     }
+}
+
+@media only screen and (min-width: 900px) {
+    @include right-article-padding(50px);
 }
 
 @media only screen and (min-width: 1300px) {
