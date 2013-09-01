@@ -3,12 +3,12 @@
 # ----------------------- #
 
 url: http://vshjxyz.github.io
-title: Code rage
+title: Coding rage
 subtitle: Puking lines of code from time to time
 author: Luca Del Bianco
 simple_search:
-description:
-
+description: General coding blog with mainly Python / Django and Coffeescript languages involved
+keywords: "python,django,coffeescript,jquery,phonegap,tastypie,node.js,heroku,cloudcontrol,programming,rage,fun"
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
 # http://www.ruby-doc.org/core-1.9.2/Time.html#method-i-strftime
@@ -19,7 +19,7 @@ date_format: "%d/%m/%Y"
 subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
-email:
+email: vshjxyz@gmail.com
 
 # ----------------------- #
 #    Jekyll & Plugins     #

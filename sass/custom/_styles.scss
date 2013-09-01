@@ -14,15 +14,72 @@ section.comments {
     padding-right: 50px;
 }
 
-article.post h2, article.post p, article.post ol {
-  padding-right: 50px;
+@mixin right-article-padding($width) {
+    article.post h2, 
+    article.post p,
+    article.post ol,
+    article.post figure,
+    article footer
+    {
+        padding-right: $width;
+    }
 }
 
-article.post figure {
-  padding-right: 50px;
+@mixin article-footer($height) {
+    article footer {
+        height: $height;
+        text-align: center;
+        overflow: hidden;
+        div, a {
+            cursor: pointer;
+            position: relative;
+            display: block;
+            border-bottom: none;
+            height: $height;
+            line-height: $height;
+            &.full-article {
+                background-color: rgba(170,170,170,0.2);
+                @include transition-property(top);
+                @include transition-duration(0.5s);
+                &:hover {
+                    top: -$height;
+                }
+            }
+            &.full-article-hover {
+                background-color: rgba(170,170,170,0.5);
+            }
+        }
+    }
+}
+
+// Short screen
+@media only screen and (max-height: 650px) {
+    @include article-footer(25px);
+    @include right-article-padding(10px);
+    article footer {
+        padding: 0;
+        div.full-article {
+            top: -25px;
+        }
+    }
+}
+
+// Medium-width screen
+@media only screen and (max-width: 630px),
+  (device-height: 1024px) and (device-width: 768px) and (orientation: portrait) {
+    @include article-footer(40px);
+    @include right-article-padding(10px);
+    article footer {
+        padding: 0;
+        div.full-article {
+            top: -40px;
+        }
+    }
 }
 
 @media only screen and (min-width: 1300px) {
+    @include article-footer(40px);
+    @include right-article-padding(50px);
     h1 {
       font-size: 5.9vw;
     }
@@ -32,7 +89,7 @@ article.post figure {
     blockquote > p {
       font-size: 2.6vmin;
     }
-    span {
+    span, article footer a,  article footer div {
       font-size: 2vmin;
     }
     h3, section h2, section h1, .entry-title > a {
