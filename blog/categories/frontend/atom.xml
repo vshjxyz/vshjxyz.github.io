@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: frontend | Coding rage]]></title>
+  <link href="http://vshjxyz.github.io/blog/categories/frontend/atom.xml" rel="self"/>
+  <link href="http://vshjxyz.github.io/"/>
+  <updated>2013-09-01T16:59:51+02:00</updated>
+  <id>http://vshjxyz.github.io/</id>
+  <author>
+    <name><![CDATA[Luca Del Bianco]]></name>
+    <email><![CDATA[vshjxyz@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Pure CSS3 turnover effect animation of a button without sprites]]></title>
+    <link href="http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/"/>
+    <updated>2013-09-01T15:06:00+02:00</updated>
+    <id>http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites</id>
+    <content type="html"><![CDATA[<p>Ye ye I know that this is all but &lsquo;real&rsquo; coding, but I want to grab the chance to post something here just because I&rsquo;ve done some little css modifications to this blog.</p>
+
+<p>Oh yes, I&rsquo;m excited in particular about the &lsquo;read on&rsquo; button animation and how easy is to achieve this without using sprites or images.</p>
+
+<p>In short, here is where I want to go:</p>
+
+<p><a href="/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif"><span class='caption-wrapper center'><img class='caption' src='/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif' width='400' height='67' title='The CSS3 button animation effect &ndash; click to zoom'><span class='caption-text'>The CSS3 button animation effect &ndash; click to zoom</span></span></a></p>
+
+<!--more-->
+
+
+<p>So, let&rsquo;s see the html code of the button:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- inside the article... --&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;footer&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>div class=&quot;full-article&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>        Read on →
+</span><span class='line'>        <span class="ni">&amp;lt;</span>a class=&quot;full-article-hover&quot; rel=&quot;full-article&quot; href=&quot;http://vshjxyz.github.io/yourlink&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>            Read on →
+</span><span class='line'>        <span class="ni">&amp;lt;</span>/a<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/footer&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>As you can see, there&rsquo;s no real magic but a simple anchor (or link, whatever) <code>a</code> inside a <code>div</code> all wrapped in a <code>footer</code> element.</p>
+
+<p>The <code>footer</code> will be our viewport, the <code>div</code> will be the only element animated and it should translate top by the amount of his height as explained here:
+<a href="/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png"><span class='caption-wrapper center'><img class='caption' src='/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png' width='400' height='53' title='The animation explanation &ndash; click to zoom'><span class='caption-text'>The animation explanation &ndash; click to zoom</span></span></a></p>
+
+<p>So basically we need to have a fixed height and use a css transition to move the div up by his whole height.
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="k">@mixin</span><span class="nf"> article-footer</span><span class="p">(</span><span class="nv">$height</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">pre</span><span class="o">&gt;&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">article</span> <span class="nt">footer</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Setting the viewport height</span>
+</span><span class='line'>    <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'>    <span class="nt">div</span><span class="o">,</span> <span class="nt">a</span> <span class="p">{</span>
+</span><span class='line'>        <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
+</span><span class='line'>        <span class="na">position</span><span class="o">:</span> <span class="no">relative</span><span class="p">;</span>
+</span><span class='line'>        <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span><span class="na">ù</span>
+</span><span class='line'>        <span class="c1">// Setting the single div and the anchor to the same height equal to the viewport</span>
+</span><span class='line'>        <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'>        <span class="c1">// Centering the text</span>
+</span><span class='line'>        <span class="na">line-height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">&amp;</span><span class="nt">amp</span><span class="o">;</span><span class="nc">.full-article</span> <span class="p">{</span>
+</span><span class='line'>            <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">&amp;</span><span class="nt">amp</span><span class="o">;</span><span class="nc">.full-article-hover</span> <span class="p">{</span>
+</span><span class='line'>            <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.5</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;&lt;/</span><span class="nt">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+You can see that I&rsquo;ve wrapped all inside a <code>mixin</code> so I can easily use one-line of code to sett the different buttons height based on the viewport of the user&rsquo;s browser.
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// The button will be 40px for every resolution</span>
+</span><span class='line'><span class="k">@include</span><span class="nd"> article-footer</span><span class="p">(</span><span class="mi">40</span><span class="kt">px</span><span class="p">);</span><span class="na">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">&lt;p&gt;@media</span><span class="err"> </span><span class="na">only</span><span class="err"> </span><span class="na">screen</span><span class="err"> </span><span class="na">and</span><span class="err"> </span><span class="na">(max-height</span><span class="o">:</span> <span class="mi">650</span><span class="kt">px</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">pre</span><span class="o">&gt;&lt;</span><span class="nt">code</span><span class="o">&gt;//</span> <span class="nt">Except</span> <span class="nt">if</span> <span class="nt">I</span> <span class="nt">browse</span> <span class="nt">the</span> <span class="nt">website</span> <span class="nt">with</span> <span class="nt">a</span> <span class="nt">screen</span> <span class="nt">that</span> <span class="nt">has</span> <span class="nt">a</span> <span class="nt">height</span> <span class="k">&amp;</span><span class="nt">lt</span><span class="o">;</span> <span class="nt">650</span>
+</span><span class='line'><span class="o">@</span><span class="nt">include</span> <span class="nt">article-footer</span><span class="o">(</span><span class="nt">25px</span><span class="o">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;&lt;/</span><span class="nt">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;//</span> <span class="k">&amp;</span><span class="nt">hellip</span><span class="o">;</span> <span class="nt">more</span> <span class="nt">media</span> <span class="nt">breakpoints</span> <span class="k">&amp;</span><span class="nt">hellip</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+With <a href="http://compass-style.org/">Compass</a> I can use one of their mixin to super easily use <a href="http://compass-style.org/reference/compass/css3/transition/">CSS3 transitions</a>, so all I need to do is simply add this code to get the animation effect:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// Inside the previous code &amp;hellip;</span>
+</span><span class='line'><span class="k">&amp;</span><span class="nt">amp</span><span class="o">;</span><span class="nc">.full-article</span> <span class="p">{</span><span class="na">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">&lt;pre&gt;&lt;code&gt;background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// This line will tell which property has to translate</span>
+</span><span class='line'><span class="k">@include</span><span class="nd"> transition-property</span><span class="p">(</span><span class="no">top</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Tis mixin will set the transition duration</span>
+</span><span class='line'><span class="k">@include</span><span class="nd"> transition-duration</span><span class="p">(</span><span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="p">);</span>
+</span><span class='line'><span class="k">&amp;</span><span class="nt">amp</span><span class="o">;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// This will trigger the transition and set the &#39;destination&#39;</span>
+</span><span class='line'>    <span class="c1">// value of the top attribute on hover</span>
+</span><span class='line'>    <span class="na">top</span><span class="o">:</span> <span class="o">-</span><span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;&lt;/</span><span class="nt">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So these <strong>25 lines of SCSS code</strong> make me puking rainbows just because they will be compiled to <strong>60+ lines of CSS code</strong> and basically there&rsquo;s why you should use Compass+SCSS or shoot yourself.
+<strong>PEACE!</strong></p>
+]]></content>
+  </entry>
+  
+</feed>

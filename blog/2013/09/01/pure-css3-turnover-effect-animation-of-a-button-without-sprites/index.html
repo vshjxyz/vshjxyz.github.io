@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Pure CSS3 turnover effect animation of a button without sprites - Coding rage</title>
+  <meta name="author" content="Luca Del Bianco">
+
+  
+  <meta name="description" content="How to have a turnover effect on hover of a button">
+  
+  
+  <meta name="keywords" content="design,css3,compass,scss,sass,button,animation,transition,turnover,effect,hover" />
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Coding rage" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-43618796-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body >
+  <header role="banner" id="sidebar">
+    <!-- Logo -->
+<aside id="logo">
+    <a href="/">
+        <img alt="rage" src="/images/rage.png" id="rage" />
+    </a>
+</aside>
+
+<ul id="menu">
+
+  <li class="title">
+    <h1 id="title"><a href="/">Coding rage</a></h1>
+  </li>
+
+
+  <li class="subtitle">
+    <h2 id="subtitle">Puking lines of code from time to time</h2>
+  </li>
+
+
+  <li class="link">
+    <a href="http://twitter.com/vshjxyz/"><i class="icon-twitter"></i>&nbsp;&nbsp;twitter</a>
+  </li>
+
+
+  <li class="link">
+    <a href="http://github.com/vshjxyz/"><i class="icon-github"></i>&nbsp;&nbsp;github</a>
+  </li>
+
+  <li class="link rss">
+    <a href="/atom.xml"><i class="icon-rss"></i>&nbsp;&nbsp;rss feed</a>
+  </li>
+</ul>
+
+
+  </header>
+  <section id="main">
+    <article class="post">
+  
+  <header>
+    
+      <h2 class="entry-title">Pure CSS3 Turnover Effect Animation of a Button Without Sprites</h2>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-01T15:06:00+02:00" pubdate data-updated="true"><i class="icon-time"></i>&nbsp;01/09/2013 - 15:06</time>
+        
+      </p>
+    
+  </header>
+
+
+<p>Ye ye I know that this is all but &lsquo;real&rsquo; coding, but I want to grab the chance to post something here just because I&rsquo;ve done some little css modifications to this blog.</p>
+
+<p>Oh yes, I&rsquo;m excited in particular about the &lsquo;read on&rsquo; button animation and how easy is to achieve this without using sprites or images.</p>
+
+<p>In short, here is where I want to go:</p>
+
+<p><a href="/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif"><span class='caption-wrapper center'><img class='caption' src='/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif' width='400' height='67' title='The CSS3 button animation effect - click to zoom'><span class='caption-text'>The CSS3 button animation effect &ndash; click to zoom</span></span></a></p>
+
+<!--more-->
+
+
+<p>So, let&rsquo;s see the html code of the button:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- inside the article... --&gt;</span>
+</span><span class='line'><span class="nt">&lt;footer&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;full-article&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>            Read on →
+</span><span class='line'>            <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;full-article-hover&quot;</span> <span class="na">rel=</span><span class="s">&quot;full-article&quot;</span> <span class="na">href=</span><span class="s">&quot;/yourlink&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>                Read on →
+</span><span class='line'>            <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/footer&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see, there&rsquo;s no real magic but a simple anchor (or link, whatever) <code>a</code> inside a <code>div</code> all wrapped in a <code>footer</code> element.</p>
+
+<p>The <code>footer</code> will be our viewport, the <code>div</code> will be the only element animated and it should translate top by the amount of his height as explained here:
+<a href="/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png"><span class='caption-wrapper center'><img class='caption' src='/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png' width='400' height='53' title='The animation explanation - click to zoom'><span class='caption-text'>The animation explanation &ndash; click to zoom</span></span></a></p>
+
+<p>So basically we need to have a fixed height and use a css transition to move the div up by his whole height.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="k">@mixin</span><span class="nf"> article-footer</span><span class="p">(</span><span class="nv">$height</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nt">article</span> <span class="nt">footer</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Setting the viewport height</span>
+</span><span class='line'>        <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'>        <span class="nt">div</span><span class="o">,</span> <span class="nt">a</span> <span class="p">{</span>
+</span><span class='line'>            <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
+</span><span class='line'>            <span class="na">position</span><span class="o">:</span> <span class="no">relative</span><span class="p">;</span>
+</span><span class='line'>            <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span><span class="na">ù</span>
+</span><span class='line'>            <span class="c1">// Setting the single div and the anchor to the same height equal to the viewport</span>
+</span><span class='line'>            <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'>            <span class="c1">// Centering the text</span>
+</span><span class='line'>            <span class="na">line-height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">&amp;</span><span class="nc">.full-article</span> <span class="p">{</span>
+</span><span class='line'>                <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="k">&amp;</span><span class="nc">.full-article-hover</span> <span class="p">{</span>
+</span><span class='line'>                <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.5</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can see that I&rsquo;ve wrapped all inside a <code>mixin</code> so I can easily use one-line of code to sett the different buttons height based on the viewport of the user&rsquo;s browser.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// The button will be 40px for every resolution</span>
+</span><span class='line'><span class="k">@include</span><span class="nd"> article-footer</span><span class="p">(</span><span class="mi">40</span><span class="kt">px</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-height</span><span class="nd">:</span> <span class="nt">650px</span><span class="o">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Except if I browse the website with a screen that has a height &lt; 650</span>
+</span><span class='line'>    <span class="k">@include</span><span class="nd"> article-footer</span><span class="p">(</span><span class="mi">25</span><span class="kt">px</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// ... more media breakpoints ...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With <a href="http://compass-style.org/">Compass</a> I can use one of their mixin to super easily use <a href="http://compass-style.org/reference/compass/css3/transition/">CSS3 transitions</a>, so all I need to do is simply add this code to get the animation effect:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// Inside the previous code ...</span>
+</span><span class='line'><span class="k">&amp;</span><span class="nc">.full-article</span> <span class="p">{</span>
+</span><span class='line'>    <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// This line will tell which property has to translate</span>
+</span><span class='line'>    <span class="k">@include</span><span class="nd"> transition-property</span><span class="p">(</span><span class="no">top</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// Tis mixin will set the transition duration</span>
+</span><span class='line'>    <span class="k">@include</span><span class="nd"> transition-duration</span><span class="p">(</span><span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// This will trigger the transition and set the &#39;destination&#39;</span>
+</span><span class='line'>        <span class="c1">// value of the top attribute on hover</span>
+</span><span class='line'>        <span class="na">top</span><span class="o">:</span> <span class="o">-</span><span class="nv">$height</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So these <strong>25 lines of SCSS code</strong> make me puking rainbows just because they will be compiled to <strong>60+ lines of CSS code</strong> and basically there&rsquo;s why you should use Compass+SCSS or shoot yourself.
+<strong>PEACE!</strong></p>
+
+
+
+  <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/" data-via="vshjxyz" data-counturl="http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/" data-size="large">Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+</article>
+
+  <section class="comments">
+    <h2>Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+    <nav role="navigation" id="pagination">
+
+</nav>
+  </section>
+  
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'coderage';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/';
+        var disqus_url = 'http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

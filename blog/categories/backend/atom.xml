@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: programming | Coding rage]]></title>
-  <link href="http://vshjxyz.github.io/blog/categories/programming/atom.xml" rel="self"/>
+  <title><![CDATA[Category: backend | Coding rage]]></title>
+  <link href="http://vshjxyz.github.io/blog/categories/backend/atom.xml" rel="self"/>
   <link href="http://vshjxyz.github.io/"/>
   <updated>2013-09-01T16:59:51+02:00</updated>
   <id>http://vshjxyz.github.io/</id>
