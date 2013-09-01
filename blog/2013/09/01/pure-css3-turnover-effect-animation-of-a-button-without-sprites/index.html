@@ -237,8 +237,14 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
 </pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// Inside the previous code ...</span>
 </span><span class='line'><span class="k">&amp;</span><span class="nc">.full-article</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// This is needed for Firefox and Opera (afaik)</span>
+</span><span class='line'>    <span class="c1">// Because they can&#39;t perform a transition from auto to N pixels</span>
+</span><span class='line'>    <span class="na">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'>    <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
 </span><span class='line'>    <span class="c1">// This line will tell which property has to translate</span>
 </span><span class='line'>    <span class="k">@include</span><span class="nd"> transition-property</span><span class="p">(</span><span class="no">top</span><span class="p">);</span>
