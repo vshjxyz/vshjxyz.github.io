@@ -33,6 +33,7 @@ So, let's see the html code of the button:
 As you can see, there's no real magic but a simple anchor (or link, whatever) `a` inside a `div` all wrapped in a `footer` element.
 
 The `footer` will be our viewport, the `div` will be the only element animated and it should translate top by the amount of his height as explained here:
+
 [{% imgcap center /images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png 400 53 The animation explanation - click to zoom %}](/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png)
 
 So basically we need to have a fixed height and use a css transition to move the div up by his whole height.
