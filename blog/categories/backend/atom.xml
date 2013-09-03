@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: backend | Coding rage]]></title>
-  <link href="http://vshjxyz.github.io/blog/categories/backend/atom.xml" rel="self"/>
-  <link href="http://vshjxyz.github.io/"/>
-  <updated>2013-09-03T15:11:22+02:00</updated>
-  <id>http://vshjxyz.github.io/</id>
+  <link href="http://www.mentalfaps.com/blog/categories/backend/atom.xml" rel="self"/>
+  <link href="http://www.mentalfaps.com/"/>
+  <updated>2013-09-03T15:13:36+02:00</updated>
+  <id>http://www.mentalfaps.com/</id>
   <author>
     <name><![CDATA[Luca Del Bianco]]></name>
     <email><![CDATA[vshjxyz@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Yeoman with Phonegap and Backbone.js]]></title>
-    <link href="http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/"/>
+    <link href="http://www.mentalfaps.com/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/"/>
     <updated>2013-08-29T10:32:00+02:00</updated>
-    <id>http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js</id>
+    <id>http://www.mentalfaps.com/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js</id>
     <content type="html"><![CDATA[<p>Being at µForge, we had to face some serious problems trying to fix and use a correct workflow for our Phonegap application.</p>
 
 <p>The application has its core built in Backbone.js and uses jQuery Mobile to render itself.

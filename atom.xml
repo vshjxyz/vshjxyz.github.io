@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Coding rage]]></title>
-  <link href="http://vshjxyz.github.io/atom.xml" rel="self"/>
-  <link href="http://vshjxyz.github.io/"/>
-  <updated>2013-09-03T15:11:22+02:00</updated>
-  <id>http://vshjxyz.github.io/</id>
+  <link href="http://www.mentalfaps.com/atom.xml" rel="self"/>
+  <link href="http://www.mentalfaps.com/"/>
+  <updated>2013-09-03T15:13:36+02:00</updated>
+  <id>http://www.mentalfaps.com/</id>
   <author>
     <name><![CDATA[Luca Del Bianco]]></name>
     <email><![CDATA[vshjxyz@gmail.com]]></email>
@@ -15,16 +15,16 @@
   
   <entry>
     <title type="html"><![CDATA[Pure CSS3 turnover effect animation of a button without sprites]]></title>
-    <link href="http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/"/>
+    <link href="http://www.mentalfaps.com/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/"/>
     <updated>2013-09-01T15:06:00+02:00</updated>
-    <id>http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites</id>
+    <id>http://www.mentalfaps.com/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites</id>
     <content type="html"><![CDATA[<p>Ye ye I know that this is all but &lsquo;real&rsquo; coding, but I want to grab the chance to post something here just because I&rsquo;ve done some little css modifications to this blog.</p>
 
 <p>Oh yes, I&rsquo;m excited in particular about the &lsquo;read on&rsquo; button animation and how easy is to achieve this without using sprites or images.</p>
 
 <p>In short, here is where I want to go:</p>
 
-<p><a href="http://vshjxyz.github.io/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif"><span class='caption-wrapper center'><img class='caption' src='http://vshjxyz.github.io/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif' width='400' height='67' title='The CSS3 button animation effect - click to zoom'><span class='caption-text'>The CSS3 button animation effect &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif' width='400' height='67' title='The CSS3 button animation effect - click to zoom'><span class='caption-text'>The CSS3 button animation effect &ndash; click to zoom</span></span></a></p>
 
 <!--more-->
 
@@ -56,7 +56,7 @@
 
 <p>The <code>footer</code> will be our viewport, the <code>div</code> will be the only element animated and it should translate top by the amount of his height as explained here:</p>
 
-<p><a href="http://vshjxyz.github.io/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png"><span class='caption-wrapper center'><img class='caption' src='http://vshjxyz.github.io/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png' width='400' height='53' title='The animation explanation - click to zoom'><span class='caption-text'>The animation explanation &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png' width='400' height='53' title='The animation explanation - click to zoom'><span class='caption-text'>The animation explanation &ndash; click to zoom</span></span></a></p>
 
 <p>So basically we need to have a fixed height and use a css transition to move the div up by his whole height.</p>
 
@@ -172,9 +172,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Yeoman with Phonegap and Backbone.js]]></title>
-    <link href="http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/"/>
+    <link href="http://www.mentalfaps.com/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js/"/>
     <updated>2013-08-29T10:32:00+02:00</updated>
-    <id>http://vshjxyz.github.io/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js</id>
+    <id>http://www.mentalfaps.com/blog/2013/08/29/using-yeoman-with-phonegap-and-backbone-dot-js</id>
     <content type="html"><![CDATA[<p>Being at µForge, we had to face some serious problems trying to fix and use a correct workflow for our Phonegap application.</p>
 
 <p>The application has its core built in Backbone.js and uses jQuery Mobile to render itself.
@@ -361,7 +361,7 @@ an apparently random order (so it&rsquo;s a huge problem if you&rsquo;re using B
 
 <p>Let&rsquo;s write a basic main.coffee that allow us to have two different behaviour if we are browsing from Chrome (for debug purposes) or directly from the app:</p>
 
-<figure class='code'><figcaption><span> (main.coffee)</span> <a href='http://vshjxyz.github.io/downloads/code/main.coffee'>download</a></figcaption>
+<figure class='code'><figcaption><span> (main.coffee)</span> <a href='http://www.mentalfaps.com/downloads/code/main.coffee'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -465,18 +465,18 @@ an apparently random order (so it&rsquo;s a huge problem if you&rsquo;re using B
 <p>After <em>ALL</em> these passages, you should be able to use the <code>grunt server</code> command from the <code>Hello</code> folder to use Yeoman in the browser
 along with Ripple. You should see something like this:</p>
 
-<p><span class='caption-wrapper center'><img class='caption' src='http://vshjxyz.github.io/images/using-yeoman-with-phonegap/ripple.png' width='' height='' title='The base app with Ripple in Chrome'><span class='caption-text'>The base app with Ripple in Chrome</span></span></p>
+<p><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/using-yeoman-with-phonegap/ripple.png' width='' height='' title='The base app with Ripple in Chrome'><span class='caption-text'>The base app with Ripple in Chrome</span></span></p>
 
 <p>The JS console should show ~this:</p>
 
-<p><a href="http://vshjxyz.github.io/images/using-yeoman-with-phonegap/debug.png"><span class='caption-wrapper center'><img class='caption' src='http://vshjxyz.github.io/images/using-yeoman-with-phonegap/debug.png' width='400' height='40' title='The JS console screenshot - click to zoom'><span class='caption-text'>The JS console screenshot &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/debug.png"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/using-yeoman-with-phonegap/debug.png' width='400' height='40' title='The JS console screenshot - click to zoom'><span class='caption-text'>The JS console screenshot &ndash; click to zoom</span></span></a></p>
 
 <p>Notice the <code>WE ARE IN DEBUG</code> part that indicates the flow of the code. If we launch a <code>grunt --force</code> from the <code>Hello</code> folder, we will not have
 all the code compiled in the assets/www folder of our Android project.</p>
 
 <p>Just use Eclipse and open the <code>hello_android</code> folder as an existing Android project and launch it with an emulator or your phone and you should see these lines:</p>
 
-<p><a href="http://vshjxyz.github.io/images/using-yeoman-with-phonegap/logcat.png"><span class='caption-wrapper center'><img class='caption' src='http://vshjxyz.github.io/images/using-yeoman-with-phonegap/logcat.png' width='400' height='111' title='The logcat screenshot - click to zoom'><span class='caption-text'>The logcat screenshot &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/logcat.png"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/using-yeoman-with-phonegap/logcat.png' width='400' height='111' title='The logcat screenshot - click to zoom'><span class='caption-text'>The logcat screenshot &ndash; click to zoom</span></span></a></p>
 
 <p>As you can see, the code followed another flow in comparison with the webapp. In the end these passages allow you to have this kind of workflow:</p>
 
@@ -494,9 +494,9 @@ all the code compiled in the assets/www folder of our Android project.</p>
   
   <entry>
     <title type="html"><![CDATA[The first one]]></title>
-    <link href="http://vshjxyz.github.io/blog/2013/08/27/the-first-one/"/>
+    <link href="http://www.mentalfaps.com/blog/2013/08/27/the-first-one/"/>
     <updated>2013-08-27T15:49:00+02:00</updated>
-    <id>http://vshjxyz.github.io/blog/2013/08/27/the-first-one</id>
+    <id>http://www.mentalfaps.com/blog/2013/08/27/the-first-one</id>
     <content type="html"><![CDATA[<p>Hey!</p>
 
 <p>I&rsquo;ve setup this blog just because I always wanted one. Unfortunately I&rsquo;m a man of few words so it&rsquo;s better if I&rsquo;ll start to write some code ASAP :O.</p>

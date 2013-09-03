@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: http://vshjxyz.github.io/sitemap.xml
+Sitemap: http://www.mentalfaps.com/sitemap.xml

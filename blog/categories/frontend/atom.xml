@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: frontend | Coding rage]]></title>
-  <link href="http://vshjxyz.github.io/blog/categories/frontend/atom.xml" rel="self"/>
-  <link href="http://vshjxyz.github.io/"/>
-  <updated>2013-09-03T15:11:22+02:00</updated>
-  <id>http://vshjxyz.github.io/</id>
+  <link href="http://www.mentalfaps.com/blog/categories/frontend/atom.xml" rel="self"/>
+  <link href="http://www.mentalfaps.com/"/>
+  <updated>2013-09-03T15:13:36+02:00</updated>
+  <id>http://www.mentalfaps.com/</id>
   <author>
     <name><![CDATA[Luca Del Bianco]]></name>
     <email><![CDATA[vshjxyz@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Pure CSS3 turnover effect animation of a button without sprites]]></title>
-    <link href="http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/"/>
+    <link href="http://www.mentalfaps.com/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/"/>
     <updated>2013-09-01T15:06:00+02:00</updated>
-    <id>http://vshjxyz.github.io/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites</id>
+    <id>http://www.mentalfaps.com/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites</id>
     <content type="html"><![CDATA[<p>Ye ye I know that this is all but &lsquo;real&rsquo; coding, but I want to grab the chance to post something here just because I&rsquo;ve done some little css modifications to this blog.</p>
 
 <p>Oh yes, I&rsquo;m excited in particular about the &lsquo;read on&rsquo; button animation and how easy is to achieve this without using sprites or images.</p>
@@ -55,7 +55,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>div class=&quot;full-article&quot;<span class="ni">&amp;gt;</span>
 </span><span class='line'>        Read on →
-</span><span class='line'>        <span class="ni">&amp;lt;</span>a class=&quot;full-article-hover&quot; rel=&quot;full-article&quot; href=&quot;http://vshjxyz.github.io/yourlink&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>a class=&quot;full-article-hover&quot; rel=&quot;full-article&quot; href=&quot;http://www.mentalfaps.com/yourlink&quot;<span class="ni">&amp;gt;</span>
 </span><span class='line'>            Read on →
 </span><span class='line'>        <span class="ni">&amp;lt;</span>/a<span class="ni">&amp;gt;</span>
 </span><span class='line'><span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
