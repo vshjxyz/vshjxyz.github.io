@@ -204,6 +204,8 @@ Running the application with a proper Tastypie API, will return you the list of 
 
 [{% imgcap center /images/setting-up-yeoman-and-angular-using-coffeescript/objects.png 400 168 The Yeoman base view - click to zoom %}](/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png)
 
+** THE WHOLE CODE CAN BE FOUND HERE: https://github.com/vshjxyz/angulartestapp **
+
 This is pretty straightforward and I know that the tests are lacking but **I'M WORKING ON IT** OK??!
 
 :) well, I'll try to update / post more stuff about AngularJS as soon as I discover new 'things'. Peace out.
