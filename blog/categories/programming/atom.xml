@@ -4,7 +4,7 @@
   <title><![CDATA[Category: programming | Coding rage]]></title>
   <link href="http://www.mentalfaps.com/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://www.mentalfaps.com/"/>
-  <updated>2013-10-07T11:03:25+02:00</updated>
+  <updated>2013-10-07T11:09:14+02:00</updated>
   <id>http://www.mentalfaps.com/</id>
   <author>
     <name><![CDATA[Luca Del Bianco]]></name>
@@ -234,8 +234,9 @@ And at the bottom of the file
 This operation will enable two different tasks that you can launch with <code>grunt test:unit</code> and <code>grunt test:e2e</code> with their respective behaviour.</p>
 
 <h2 id="basic-example-of-a-restful-angular-service-calling-tastypie-api">Basic example of a RESTful Angular service calling Tastypie API</h2>
-<p>So, if you have followed the steps you should be able to run the application using <code>grunt server</code> and see the typical Yeoman greeting:
-<a href="/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png"><span class='caption-wrapper center'><img class='caption' src='/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png' width='400' height='223' title='The Yeoman base view - click to zoom'><span class='caption-text'>The Yeoman base view - click to zoom</span></span></a></p>
+<p>So, if you have followed the steps you should be able to run the application using <code>grunt server</code> and see the typical Yeoman greeting:</p>
+
+<p><a href="/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png"><span class='caption-wrapper center'><img class='caption' src='/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png' width='400' height='223' title='The Yeoman base view - click to zoom'><span class='caption-text'>The Yeoman base view - click to zoom</span></span></a></p>
 
 <p>Let’s get and display a list via AJAX then. First, we have to create a new service using <code>yo angular:factory MyObject</code>. This will create two files, one is the real service, the other is the corresponding test file.</p>
 
@@ -309,10 +310,11 @@ This will:
 </span><span class='line'><span class="nt">&lt;p&gt;</span><span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Running the application with a proper Tastypie API, will return you the list of objects name:
-<a href="/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png"><span class='caption-wrapper center'><img class='caption' src='/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png' width='400' height='168' title='The Yeoman base view - click to zoom'><span class='caption-text'>The Yeoman base view - click to zoom</span></span></a></p>
+<p>Running the application with a proper Tastypie API, will return you the list of objects name:</p>
 
-<p>This is pretty straightforward and I know that the tests are lacking but I’M WORKING ON IT OK??!</p>
+<p><a href="/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png"><span class='caption-wrapper center'><img class='caption' src='/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png' width='400' height='168' title='The Yeoman base view - click to zoom'><span class='caption-text'>The Yeoman base view - click to zoom</span></span></a></p>
+
+<p>This is pretty straightforward and I know that the tests are lacking but <strong>I’M WORKING ON IT</strong> OK??!</p>
 
 <p>:) well, I’ll try to update / post more stuff about AngularJS as soon as I discover new ‘things’. Peace out.</p>
 ]]></content>
