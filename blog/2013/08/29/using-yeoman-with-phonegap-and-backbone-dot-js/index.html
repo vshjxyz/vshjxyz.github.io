@@ -118,315 +118,301 @@
 <p>The application has its core built in Backbone.js and uses jQuery Mobile to render itself.
 It also comunicates with a Django server that has an API built using Tastypie to get/set the data.</p>
 
-<p>The app is being compiled for Android and I actually have no experiences with Phonegap&rsquo;s iOs building process, but the principle is sureley the same.</p>
+<p>The app is being compiled for Android and I actually have no experiences with Phonegap’s iOs building process, but the principle is sureley the same.</p>
 
 <blockquote><p>I dont give a f**k about your app, just show us the code!</p></blockquote>
 
-
 <p>OK, OK, use the following steps to setup all the base things needed to correctly build a web app with Yeoman using a single Gruntfile:</p>
 
-<p><strong>NOTE</strong>: I&rsquo;ve used the Phonegap 2.7.0 version for this example app, I&rsquo;m sure that you&rsquo;ll figure out how to make it work for Phonegap 3+ (afaik it&rsquo;s easy).</p>
+<p><strong>NOTE</strong>: I’ve used the Phonegap 2.7.0 version for this example app, I’m sure that you’ll figure out how to make it work for Phonegap 3+ (afaik it’s easy).</p>
 
 <!--more-->
 
-
-<h2>The Setup</h2>
+<h2 id="the-setup">The Setup</h2>
 
 <p>First of all, use <a href="http://docs.phonegap.com/en/2.7.0/guide_getting-started_android_index.md.html#Getting%20Started%20with%20Android">THIS</a> guide to setup the Phonegap environment. Basically you need to install the Android ADT bundle and setup the global path to make you have the adb command in the terminal and stuff like that.
 Create a basic app using the Phonegap binary (inside <code>phonegap-2.7.0/lib/android/bin/</code>)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>./create ../../../../helloapp/hello_android com.example.hello hello
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">./create ../../../../helloapp/hello_android com.example.hello hello
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Install Yeoman and the basic backbone generator (or the basic <code>generator-webapp</code> if you prefer)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>npm install -g yo <span class="o">&amp;&amp;</span> npm install -g generator-backbone
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">npm install -g yo <span class="o">&amp;&amp;</span> npm install -g generator-backbone
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p>Create a Yeoman project inside the <code>helloapp</code> folder that you’ve created before with the Phonegap’s create command</p>
 
-<p>Create a Yeoman project inside the <code>helloapp</code> folder that you&rsquo;ve created before with the Phonegap&rsquo;s create command</p>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">cd </span>helloapp <span class="c"># whenever the helloapp is</span>
+</span><span class="line">mkdir Hello <span class="o">&amp;&amp;</span> <span class="nb">cd </span>Hello
+</span><span class="line">yo backbone --coffee --template-framework<span class="o">=</span>handlebars <span class="c"># You can use different configurations ofc</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>helloapp <span class="c"># whenever the helloapp is</span>
-</span><span class='line'>mkdir Hello <span class="o">&amp;&amp;</span> <span class="nb">cd </span>Hello
-</span><span class='line'>yo backbone --coffee --template-framework<span class="o">=</span>handlebars <span class="c"># You can use different configurations ofc</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>As you can see, this command will generate a shitload of files in the current directory. Note that the directory name has the first letter uppercase, ‘cause the backbone generator will use that name as the basic namespace.</p>
 
+<p>Install <a href="http://emulate.phonegap.com/">Ripple</a> for Chrome if you want to have a nice looking of the whole app in a pseudo-device. Unfortunately the Phonegap “integration” seems to be broken at the moment, so if you activate the plugin just say that you are testing a normal mobile Web app.</p>
 
-<p>As you can see, this command will generate a shitload of files in the current directory. Note that the directory name has the first letter uppercase, &lsquo;cause the backbone generator will use that name as the basic namespace.</p>
+<p>So here’s the trick, you must delete all the asset folder inside <code>helloapp/hello_android/assets/www</code> to allow you to build the app from Yeoman. Create a link from the <code>dist</code> directory of the Yeoman app to the <code>www</code> directory of the Phonegap - android app.</p>
 
-<p>Install <a href="http://emulate.phonegap.com/">Ripple</a> for Chrome if you want to have a nice looking of the whole app in a pseudo-device. Unfortunately the Phonegap &ldquo;integration&rdquo; seems to be broken at the moment, so if you activate the plugin just say that you are testing a normal mobile Web app.</p>
+<p><strong>Don’t</strong> forget to copy the <code>cordova*.js</code> file to your <code>vendor</code> folder of the Yeoman app.</p>
 
-<p>So here&rsquo;s the trick, you must delete all the asset folder inside <code>helloapp/hello_android/assets/www</code> to allow you to build the app from Yeoman. Create a link from the <code>dist</code> directory of the Yeoman app to the <code>www</code> directory of the Phonegap &ndash; android app.</p>
-
-<p><strong>Don&rsquo;t</strong> forget to copy the <code>cordova*.js</code> file to your <code>vendor</code> folder of the Yeoman app.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>cp ../hello_android/assets/www/cordova*.js app/scripts/vendor
-</span><span class='line'>rm ../hello_android/assets/www/* -rf
-</span><span class='line'>ln -s ../hello_android/assets/www dist
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">cp ../hello_android/assets/www/cordova*.js app/scripts/vendor
+</span><span class="line">rm ../hello_android/assets/www/* -rf
+</span><span class="line">ln -s ../hello_android/assets/www dist
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Your directory tree should look pretty much like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>├── Hello
-</span><span class='line'>│   ├── app
-</span><span class='line'>│   ├── dist -&gt; ../hello_android/assets/www/
-</span><span class='line'>│   ├── node_modules
-</span><span class='line'>│   └── <span class="nb">test</span>
-</span><span class='line'>└── hello_android
-</span><span class='line'>    ├── assets
-</span><span class='line'>    ├── bin
-</span><span class='line'>    ├── cordova
-</span><span class='line'>    ├── libs
-</span><span class='line'>    ├── res
-</span><span class='line'>    └── src
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">├── Hello
+</span><span class="line">│   ├── app
+</span><span class="line">│   ├── dist -&gt; ../hello_android/assets/www/
+</span><span class="line">│   ├── node_modules
+</span><span class="line">│   └── <span class="nb">test</span>
+</span><span class="line">└── hello_android
+</span><span class="line">    ├── assets
+</span><span class="line">    ├── bin
+</span><span class="line">    ├── cordova
+</span><span class="line">    ├── libs
+</span><span class="line">    ├── res
+</span><span class="line">    └── src
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<h2>Basic configurations</h2>
+<h2 id="basic-configurations">Basic configurations</h2>
 
 <p>Add these lines in the <code>&lt;head&gt;</code> section of the <code>app/index.html</code> file</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- build:js scripts/cordova.js --&gt;</span>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;scripts/vendor/cordova-2.7.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'><span class="c">&lt;!-- endbuild --&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!-- build:js scripts/cordova.js --&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;scripts/vendor/cordova-2.7.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="c">&lt;!-- endbuild --&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Open the Gruntfile and add these two lines</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Inside the Gruntfile...</span>
-</span><span class='line'><span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">files</span><span class="o">:</span> <span class="p">[{</span>
-</span><span class='line'>            <span class="nx">expand</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">dot</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">cwd</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.app %&gt;&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.dist %&gt;&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">src</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>                <span class="s1">&#39;cordova-*.js&#39;</span><span class="p">,</span> <span class="err">#</span> <span class="nx">these</span> <span class="nx">two</span> <span class="nx">lines</span> <span class="nx">are</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">make</span> <span class="nx">Yeoman</span> <span class="nx">include</span> <span class="nx">the</span> <span class="nx">cordova</span> <span class="nx">js</span> <span class="nx">plugin</span>
-</span><span class='line'>                <span class="s1">&#39;cordova_plugins.json&#39;</span><span class="p">,</span> <span class="err">#</span>
-</span><span class='line'>                <span class="s1">&#39;*.{ico,txt}&#39;</span><span class="p">,</span>
-</span><span class='line'>                <span class="s1">&#39;.htaccess&#39;</span><span class="p">,</span>
-</span><span class='line'>                <span class="s1">&#39;images/{,*/}*.{webp,gif}&#39;</span>
-</span><span class='line'>            <span class="p">]</span>
-</span><span class='line'>        <span class="p">}]</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">},</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="c1">// Inside the Gruntfile...</span>
+</span><span class="line"><span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">files</span><span class="o">:</span> <span class="p">[{</span>
+</span><span class="line">            <span class="nx">expand</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">dot</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">cwd</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.app %&gt;&#39;</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.dist %&gt;&#39;</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">src</span><span class="o">:</span> <span class="p">[</span>
+</span><span class="line">                <span class="s1">&#39;cordova-*.js&#39;</span><span class="p">,</span> <span class="err">#</span> <span class="nx">these</span> <span class="nx">two</span> <span class="nx">lines</span> <span class="nx">are</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">make</span> <span class="nx">Yeoman</span> <span class="nx">include</span> <span class="nx">the</span> <span class="nx">cordova</span> <span class="nx">js</span> <span class="nx">plugin</span>
+</span><span class="line">                <span class="s1">&#39;cordova_plugins.json&#39;</span><span class="p">,</span> <span class="err">#</span>
+</span><span class="line">                <span class="s1">&#39;*.{ico,txt}&#39;</span><span class="p">,</span>
+</span><span class="line">                <span class="s1">&#39;.htaccess&#39;</span><span class="p">,</span>
+</span><span class="line">                <span class="s1">&#39;images/{,*/}*.{webp,gif}&#39;</span>
+</span><span class="line">            <span class="p">]</span>
+</span><span class="line">        <span class="p">}]</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Disable yuglify if you are using backbone, because it does not allow the app to load the files in the correct order.
-I&rsquo;ve noticed that if you don&rsquo;t do this, the <code>main.js</code> files in the <code>www</code> directory will always have the scripts included in
-an apparently random order (so it&rsquo;s a huge problem if you&rsquo;re using Backbone)</p>
+I’ve noticed that if you don’t do this, the <code>main.js</code> files in the <code>www</code> directory will always have the scripts included in
+an apparently random order (so it’s a huge problem if you’re using Backbone)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;build&#39;</span><span class="p">,</span> <span class="p">[</span>
-</span><span class='line'>    <span class="s1">&#39;clean:dist&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;coffee&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;createDefaultTemplate&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;handlebars&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;compass:dist&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;useminPrepare&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;imagemin&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;htmlmin&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;concat&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;cssmin&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="c1">// &#39;uglify&#39;,</span>
-</span><span class='line'>    <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;rev&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;usemin&#39;</span>
-</span><span class='line'><span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;build&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class="line">    <span class="s1">&#39;clean:dist&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;coffee&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;createDefaultTemplate&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;handlebars&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;compass:dist&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;useminPrepare&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;imagemin&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;htmlmin&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;concat&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;cssmin&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="c1">// &#39;uglify&#39;,</span>
+</span><span class="line">    <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;rev&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;usemin&#39;</span>
+</span><span class="line"><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<p>Let&rsquo;s write a basic main.coffee that allow us to have two different behaviour if we are browsing from Chrome (for debug purposes) or directly from the app:</p>
-
-<figure class='code'><figcaption><span> (main.coffee)</span> <a href='/downloads/code/main.coffee'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nv">Hello =</span>
-</span><span class='line'>  <span class="nv">Models: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">Collections: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">Views: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">Routers: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">init: </span><span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="s">&#39;use strict&#39;</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Hello from Backbone!&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Waiting for the device to be ready...&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">$</span> <span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">false</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;init Started&#39;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">not</span> <span class="nb">window</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">available</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE IN DEBUG&quot;</span>
-</span><span class='line'>        <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">true</span>
-</span><span class='line'>        <span class="c1"># In this case we should be in a desktop application (debug)</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1"># Login with the test user (that has limited privileges and/or makes the app point to another endpoint)</span>
-</span><span class='line'>        <span class="nv">Hello.BASEURL = </span><span class="s">&#39;localhost:8000&#39;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
-</span><span class='line'>        <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1"># Waiting for phoneGap to load</span>
-</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;deviceready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE NOT IN DEBUG&quot;</span>
-</span><span class='line'>        <span class="c1"># PhoneGap is loaded</span>
-</span><span class='line'>        <span class="k">try</span>
-</span><span class='line'>            <span class="k">throw</span> <span class="s">&quot;Cordova variable does not exist. Check that you have included cordova.js correctly&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">and</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">Cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c1"># FB plugin initialized</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="nv">Hello.BASEURL = </span><span class="s">&#39;api.yourdomain.com&#39;</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
-</span><span class='line'>            <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-</span><span class='line'>        <span class="k">catch</span> <span class="nx">e</span>
-</span><span class='line'>            <span class="nb">window</span><span class="p">.</span><span class="nv">last_error = </span><span class="nx">e</span>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">e</span>
-</span><span class='line'>            <span class="k">throw</span> <span class="nx">e</span>
-</span><span class='line'>    <span class="p">,</span> <span class="kc">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p>Let’s write a basic main.coffee that allow us to have two different behaviour if we are browsing from Chrome (for debug purposes) or directly from the app:
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span> (main.coffee)</span> <a href="/downloads/code/main.coffee">download</a>&lt;/figcaption&gt;
+ &lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="coffeescript"><span class="line"><span class="nb">window</span><span class="p">.</span><span class="nv">Hello =</span>
+</span><span class="line">  <span class="nv">Models: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">Collections: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">Views: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">Routers: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">init: </span><span class="nf">-&gt;</span>
+</span><span class="line">    <span class="s">&#39;use strict&#39;</span>
+</span><span class="line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Hello from Backbone!&#39;</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Waiting for the device to be ready...&#39;</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">$</span> <span class="nf">-&gt;</span>
+</span><span class="line">    <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">false</span>
+</span><span class="line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;init Started&#39;</span>
+</span><span class="line">    <span class="k">if</span> <span class="o">not</span> <span class="nb">window</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">available</span>
+</span><span class="line">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE IN DEBUG&quot;</span>
+</span><span class="line">        <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">true</span>
+</span><span class="line">        <span class="c1"># In this case we should be in a desktop application (debug)</span>
+</span><span class="line">
+</span><span class="line">        <span class="c1"># Login with the test user (that has limited privileges and/or makes the app point to another endpoint)</span>
+</span><span class="line">        <span class="nv">Hello.BASEURL = </span><span class="s">&#39;localhost:8000&#39;</span>
+</span><span class="line">
+</span><span class="line">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
+</span><span class="line">        <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1"># Waiting for phoneGap to load</span>
+</span><span class="line">    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;deviceready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class="line">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE NOT IN DEBUG&quot;</span>
+</span><span class="line">        <span class="c1"># PhoneGap is loaded</span>
+</span><span class="line">        <span class="k">try</span>
+</span><span class="line">            <span class="k">throw</span> <span class="s">&quot;Cordova variable does not exist. Check that you have included cordova.js correctly&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">and</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">Cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">            <span class="c1"># FB plugin initialized</span>
+</span><span class="line">
+</span><span class="line">            <span class="nv">Hello.BASEURL = </span><span class="s">&#39;api.yourdomain.com&#39;</span>
+</span><span class="line">
+</span><span class="line">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
+</span><span class="line">            <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+</span><span class="line">        <span class="k">catch</span> <span class="nx">e</span>
+</span><span class="line">            <span class="nb">window</span><span class="p">.</span><span class="nv">last_error = </span><span class="nx">e</span>
+</span><span class="line">            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">e</span>
+</span><span class="line">            <span class="k">throw</span> <span class="nx">e</span>
+</span><span class="line">    <span class="p">,</span> <span class="kc">false</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 
 <p>Finally, create an empty <code>cordova_plugins.json</code> in the root of the <code>app</code> folder as required by Phonegap (for cross-domain issues if I remember well)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>touch app/cordova_plugins.json
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">touch app/cordova_plugins.json
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<h2 id="testing">Testing</h2>
 
-<h2>Testing</h2>
-
-<p>If you managed to do everything in the correct way, let&rsquo;s test the mudafucka!</p>
+<p>If you managed to do everything in the correct way, let’s test the mudafucka!</p>
 
 <p>After <em>ALL</em> these passages, you should be able to use the <code>grunt server</code> command from the <code>Hello</code> folder to use Yeoman in the browser
 along with Ripple. You should see something like this:</p>
 
-<p><span class='caption-wrapper center'><img class='caption' src='/images/using-yeoman-with-phonegap/ripple.png' width='' height='' title='The base app with Ripple in Chrome'><span class='caption-text'>The base app with Ripple in Chrome</span></span></p>
+<p><span class="caption-wrapper center"><img class="caption" src="/images/using-yeoman-with-phonegap/ripple.png" width="" height="" title="The base app with Ripple in Chrome" /><span class="caption-text">The base app with Ripple in Chrome</span></span></p>
 
 <p>The JS console should show ~this:</p>
 
-<p><a href="/images/using-yeoman-with-phonegap/debug.png"><span class='caption-wrapper center'><img class='caption' src='/images/using-yeoman-with-phonegap/debug.png' width='400' height='40' title='The JS console screenshot - click to zoom'><span class='caption-text'>The JS console screenshot &ndash; click to zoom</span></span></a></p>
+<p><a href="/images/using-yeoman-with-phonegap/debug.png"><span class="caption-wrapper center"><img class="caption" src="/images/using-yeoman-with-phonegap/debug.png" width="400" height="40" title="The JS console screenshot - click to zoom" /><span class="caption-text">The JS console screenshot - click to zoom</span></span></a></p>
 
 <p>Notice the <code>WE ARE IN DEBUG</code> part that indicates the flow of the code. If we launch a <code>grunt --force</code> from the <code>Hello</code> folder, we will not have
 all the code compiled in the assets/www folder of our Android project.</p>
 
 <p>Just use Eclipse and open the <code>hello_android</code> folder as an existing Android project and launch it with an emulator or your phone and you should see these lines:</p>
 
-<p><a href="/images/using-yeoman-with-phonegap/logcat.png"><span class='caption-wrapper center'><img class='caption' src='/images/using-yeoman-with-phonegap/logcat.png' width='400' height='111' title='The logcat screenshot - click to zoom'><span class='caption-text'>The logcat screenshot &ndash; click to zoom</span></span></a></p>
+<p><a href="/images/using-yeoman-with-phonegap/logcat.png"><span class="caption-wrapper center"><img class="caption" src="/images/using-yeoman-with-phonegap/logcat.png" width="400" height="111" title="The logcat screenshot - click to zoom" /><span class="caption-text">The logcat screenshot - click to zoom</span></span></a></p>
 
 <p>As you can see, the code followed another flow in comparison with the webapp. In the end these passages allow you to have this kind of workflow:</p>
 
 <ol>
-<li>You code with your favorite editor while launching <code>grunt server</code> to have <code>LiveReload</code> active and be able to see your modifications in <strong>REAL TIME</strong> (which is the biggest plus)</li>
-<li>Test everything related to the app with Ripple, being able to use the JS console to directly debug your code</li>
-<li>Run <code>grunt --force</code> to build your app to the android project</li>
-<li>Test it every time you need it to an emulator via Eclipse</li>
+  <li>You code with your favorite editor while launching <code>grunt server</code> to have <code>LiveReload</code> active and be able to see your modifications in <strong>REAL TIME</strong> (which is the biggest plus)</li>
+  <li>Test everything related to the app with Ripple, being able to use the JS console to directly debug your code</li>
+  <li>Run <code>grunt --force</code> to build your app to the android project</li>
+  <li>Test it every time you need it to an emulator via Eclipse</li>
 </ol>
 
-
-<p>I&rsquo;m sure that there are some simplier ways to achieve this but right now this kind of workflow is still mainly unused from the mass. I personally digg too much the livereload advantages along with the ability to debug without the need to place thousands of <code>console.log</code>. Keep also in mind that these libraries are in continue development so its pretty hard to find the right way to do things. <strong>ENJOY!</strong></p>
+<p>I’m sure that there are some simplier ways to achieve this but right now this kind of workflow is still mainly unused from the mass. I personally digg too much the livereload advantages along with the ability to debug without the need to place thousands of <code>console.log</code>. Keep also in mind that these libraries are in continue development so its pretty hard to find the right way to do things. <strong>ENJOY!</strong></p>
 
 
 

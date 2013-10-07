@@ -4,7 +4,7 @@
   <title><![CDATA[Coding rage]]></title>
   <link href="http://www.mentalfaps.com/atom.xml" rel="self"/>
   <link href="http://www.mentalfaps.com/"/>
-  <updated>2013-09-03T15:16:33+02:00</updated>
+  <updated>2013-10-07T11:03:25+02:00</updated>
   <id>http://www.mentalfaps.com/</id>
   <author>
     <name><![CDATA[Luca Del Bianco]]></name>
@@ -14,158 +14,467 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Setting up Yeoman and Angular using Coffeescript]]></title>
+    <link href="http://www.mentalfaps.com/blog/2013/10/04/setting-up-yeoman-and-angular-using-coffeescript/"/>
+    <updated>2013-10-04T16:09:00+02:00</updated>
+    <id>http://www.mentalfaps.com/blog/2013/10/04/setting-up-yeoman-and-angular-using-coffeescript</id>
+    <content type="html"><![CDATA[<p>Hey! it’s been a while I know, but I’ve been into the deep gaming world and I basically burnt all my spare time playing <a href="http://dota2.com/">Dota2</a> (which btw is pretty awesome!).</p>
+
+<p>Well, actually I also had the chance to study <a href="http://angularjs.org/">Angular.js</a> especially after I saw that the Yeoman’s <a href="https://github.com/yeoman/generator-angular">generator-angular</a> has introduced the <code>--coffee</code> option to bootstrap a whole angular application written with the beloved CoffeeScript.</p>
+
+<p>Unfortunately, the s**t doesn’t work. I mean… there are still a few things to setup.
+<!--more-->
+Initial setup
+—
+Be sure to have installed Yeoman and his generator-angular so just basically copy this line to the shell</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">npm install -g yo generator-angular
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>put a <code>sudo</code> in front of it if you have the global NPM packages under <code>/usr/lib/node_modules/</code> (be aware that using <code>sudo npm</code> is not the right way to install global packages, but whatever).</p>
+
+<p>Let’s rock the generator on a directory using</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">mkdir testapp <span class="o">&amp;&amp;</span> <span class="nb">cd </span>testapp <span class="o">&amp;&amp;</span> yo angular Test --coffee
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Yeoman will ask you a series of question, you can just take the default answers by pressing Enter.</p>
+
+<h2 id="using-the-latest-angularjs-library">Using the latest Angular.js library</h2>
+<p>So here’s the first problem. The version that is included with the generator is actually outdated (<code>1.0.8</code> right now, while Angular is at <code>1.2.0rc</code> with the latest stable <code>1.1.5</code>).</p>
+
+<blockquote><p>OMFG you are a retard, just use the f**king 1.0.8</p></blockquote>
+
+<p>Nice observation. Except that it’s stupid and you sureley dont want to start a new project with an outdated library. I also need the latest version to make it easily work using my API backend (<a href="http://tastypieapi.org/">Tastypie</a>). I need in particular the <code>transformResponse</code> option introduced in the <code>1.1.x</code> branch as seen <a href="http://stackoverflow.com/a/17332903/771589">here</a>.</p>
+
+<p>To fix this issue, you have to change the <code>bower.json</code> file that you find in the root of the project that you’ve just created.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">{</span>
+</span><span class="line">  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span>
+</span><span class="line">  <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+</span><span class="line">  <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">    <span class="s2">&quot;angular-latest&quot;</span><span class="o">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+</span><span class="line">    <span class="s2">&quot;json3&quot;</span><span class="o">:</span> <span class="s2">&quot;~3.2.4&quot;</span><span class="p">,</span>
+</span><span class="line">    <span class="s2">&quot;jquery&quot;</span><span class="o">:</span> <span class="s2">&quot;~1.9.1&quot;</span><span class="p">,</span>
+</span><span class="line">    <span class="s2">&quot;bootstrap-sass&quot;</span><span class="o">:</span> <span class="s2">&quot;~2.3.1&quot;</span><span class="p">,</span>
+</span><span class="line">    <span class="s2">&quot;es5-shim&quot;</span><span class="o">:</span> <span class="s2">&quot;~2.0.8&quot;</span>
+</span><span class="line">  <span class="p">},</span>
+</span><span class="line">  <span class="s2">&quot;devDependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Then launch this in the shell to remove the outdated libraries and install the new one:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">bower uninstall angular angular-cookies angular-mocks angular-resource angular-sanitize angular-scenario
+</span><span class="line">bower install
+</span><span class="line"><span class="c"># These lines are used to compile angular</span>
+</span><span class="line"><span class="nb">cd </span>app/bower_components/angular-latest/
+</span><span class="line">npm install
+</span><span class="line">grunt package
+</span><span class="line"><span class="nb">cd</span> ../../
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>We also need to fix the paths in a couple of files, open up <code>app/index.html</code> and update the new path for the angular libraries</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/jquery/jquery.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="c">&lt;!-- build:js scripts/plugins.js --&gt;</span>
+</span><span class="line">...
+</span><span class="line"><span class="c">&lt;!-- endbuild --&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="c">&lt;!-- build:js scripts/modules.js --&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-resource.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-cookies.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-sanitize.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="c">&lt;!-- endbuild --&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Open also the <code>karma.conf.js</code> and update the paths aswell</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="c1">// list of files / patterns to load in the browser</span>
+</span><span class="line"><span class="nx">files</span><span class="o">:</span> <span class="p">[</span>
+</span><span class="line">  <span class="s1">&#39;app/bower_components/angular-latest/build/angular.js&#39;</span><span class="p">,</span>
+</span><span class="line">  <span class="s1">&#39;app/bower_components/angular-latest/build/angular-mocks.js&#39;</span><span class="p">,</span>
+</span><span class="line">  <span class="s1">&#39;app/scripts/*.coffee&#39;</span><span class="p">,</span>
+</span><span class="line">  <span class="s1">&#39;app/scripts/**/*.coffee&#39;</span><span class="p">,</span>
+</span><span class="line">  <span class="s1">&#39;test/mock/**/*.coffee&#39;</span><span class="p">,</span>
+</span><span class="line">  <span class="s1">&#39;test/spec/**/*.coffee&#39;</span>
+</span><span class="line"><span class="p">],</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="setting-up-the-tests">Setting up the tests</h2>
+<p>Somehow the e2e tests are not contemplated with this generator. We need to set them up opening the <code>Gruntfile.js</code></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">karma</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">  <span class="nx">unit</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma.conf.js&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="nx">singleRun</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="p">},</span>
+</span><span class="line"><span class="c1">// Substitute this piece of code with this</span>
+</span><span class="line"><span class="nx">karma</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">  <span class="nx">e2e</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma-e2e.conf.js&#39;</span><span class="p">,</span>
+</span><span class="line">  <span class="p">},</span>
+</span><span class="line">  <span class="nx">unit</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma.conf.js&#39;</span><span class="p">,</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>And at the bottom of the file</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line">  <span class="c1">// REMOVE THIS TASK</span>
+</span><span class="line">  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class="line">    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;connect:test&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;karma&#39;</span>
+</span><span class="line">  <span class="p">]);</span>
+</span><span class="line">
+</span><span class="line">  <span class="c1">// Change that piece of code with these two, to enable the test:unit and test:e2e tasks</span>
+</span><span class="line">  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test:unit&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class="line">    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;connect:test&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;karma:unit&#39;</span>
+</span><span class="line">  <span class="p">]);</span>
+</span><span class="line">
+</span><span class="line">  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test:e2e&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class="line">    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;connect:livereload&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;karma:e2e&#39;</span>
+</span><span class="line">  <span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This operation will enable two different tasks that you can launch with <code>grunt test:unit</code> and <code>grunt test:e2e</code> with their respective behaviour.</p>
+
+<h2 id="basic-example-of-a-restful-angular-service-calling-tastypie-api">Basic example of a RESTful Angular service calling Tastypie API</h2>
+<p>So, if you have followed the steps you should be able to run the application using <code>grunt server</code> and see the typical Yeoman greeting:
+<a href="http://www.mentalfaps.com/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png"><span class="caption-wrapper center"><img class="caption" src="http://www.mentalfaps.com/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png" width="400" height="223" title="The Yeoman base view - click to zoom" /><span class="caption-text">The Yeoman base view - click to zoom</span></span></a></p>
+
+<p>Let’s get and display a list via AJAX then. First, we have to create a new service using <code>yo angular:factory MyObject</code>. This will create two files, one is the real service, the other is the corresponding test file.</p>
+
+<p>Open the new file under <code>app/scripts/services/MyObject.coffee</code> and substitute it with this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="s">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s">&#39;TestApp.services&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;ngResource&#39;</span><span class="p">]).</span><span class="nx">factory</span> <span class="s">&#39;MyObject&#39;</span><span class="p">,[</span><span class="s">&#39;$resource&#39;</span><span class="p">,</span> <span class="s">&#39;$http&#39;</span><span class="p">,</span> <span class="nf">($resource, $http) -&gt;</span>
+</span><span class="line">    <span class="nx">$resource</span> <span class="s">&#39;http://localhost:8000\:8000/your/api/endpoint/&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{</span>
+</span><span class="line">        <span class="nv">query:</span>
+</span><span class="line">            <span class="nv">method: </span><span class="s">&#39;GET&#39;</span>
+</span><span class="line">            <span class="nv">isArray: </span><span class="kc">true</span>
+</span><span class="line">            <span class="nv">transformResponse: </span><span class="nx">$http</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">transformResponse</span><span class="p">.</span><span class="nx">concat</span> <span class="p">[</span><span class="nf">(data, headersGetter) -&gt;</span>
+</span><span class="line">                <span class="k">if</span> <span class="nx">data</span><span class="o">?</span> <span class="o">and</span> <span class="nx">data</span> <span class="o">isnt</span> <span class="s">&#39;&#39;</span>
+</span><span class="line">                    <span class="nv">result = </span><span class="nx">data</span><span class="p">.</span><span class="nx">objects</span>
+</span><span class="line">                    <span class="nv">result.meta = </span><span class="nx">data</span><span class="p">.</span><span class="nx">meta</span>
+</span><span class="line">                    <span class="nx">result</span>
+</span><span class="line">            <span class="p">]</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This will:
+* Inject the <code>ngResource</code> object inside the factory, allowing us to define a new <code>$resource</code>
+* Inject the <code>$http</code> object inside the factory to allow us to extend the <code>transformResponse</code> method (mandatory if you are using Tastypie as your API backend)
+* Define your new resource as MyObject
+* Define the module <code>TestApp.services</code> where you will can all the services of this app</p>
+
+<p>This is what the main controller has become:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="s">&#39;use strict&#39;</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s">&#39;TestApp.controllers&#39;</span><span class="p">,</span> <span class="p">[]).</span><span class="nx">controller</span> <span class="s">&#39;MainCtrl&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;$scope&#39;</span><span class="p">,</span> <span class="s">&#39;MyObject&#39;</span><span class="p">,</span> <span class="nf">($scope, MyObject) -&gt;</span>
+</span><span class="line">    <span class="nx">MyObject</span><span class="p">.</span><span class="nx">query</span><span class="p">().</span><span class="nx">$then</span> <span class="nf">(objects) -&gt;</span>
+</span><span class="line">        <span class="nv">$scope.objects = </span><span class="nx">objects</span><span class="p">.</span><span class="nx">data</span>
+</span><span class="line"><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This code will inject our factory object inside the main controller. The controller will then query the object and then inject in the <code>$scope</code> the resulting items.</p>
+
+<p>Finally, we can add some super simple code in our main controller view (HTML) to dump the list:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;hero-unit&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;h1&gt;</span>Here&#39;s my list of objects<span class="nt">&lt;/h1&gt;</span>
+</span><span class="line">  <span class="nt">&lt;ul&gt;</span>
+</span><span class="line">      <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">&quot;object in objects&quot;</span><span class="nt">&gt;</span>{{object.name}}<span class="nt">&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/ul&gt;</span>
+</span><span class="line"><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Running the application with a proper Tastypie API, will return you the list of objects name:
+<a href="http://www.mentalfaps.com/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png"><span class="caption-wrapper center"><img class="caption" src="http://www.mentalfaps.com/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png" width="400" height="168" title="The Yeoman base view - click to zoom" /><span class="caption-text">The Yeoman base view - click to zoom</span></span></a></p>
+
+<p>This is pretty straightforward and I know that the tests are lacking but I’M WORKING ON IT OK??!</p>
+
+<p>:) well, I’ll try to update / post more stuff about AngularJS as soon as I discover new ‘things’. Peace out.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Pure CSS3 turnover effect animation of a button without sprites]]></title>
     <link href="http://www.mentalfaps.com/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites/"/>
     <updated>2013-09-01T15:06:00+02:00</updated>
     <id>http://www.mentalfaps.com/blog/2013/09/01/pure-css3-turnover-effect-animation-of-a-button-without-sprites</id>
-    <content type="html"><![CDATA[<p>Ye ye I know that this is all but &lsquo;real&rsquo; coding, but I want to grab the chance to post something here just because I&rsquo;ve done some little css modifications to this blog.</p>
+    <content type="html"><![CDATA[<p>Ye ye I know that this is all but ‘real’ coding, but I want to grab the chance to post something here just because I’ve done some little css modifications to this blog.</p>
 
-<p>Oh yes, I&rsquo;m excited in particular about the &lsquo;read on&rsquo; button animation and how easy is to achieve this without using sprites or images.</p>
+<p>Oh yes, I’m excited in particular about the ‘read on’ button animation and how easy is to achieve this without using sprites or images.</p>
 
 <p>In short, here is where I want to go:</p>
 
-<p><a href="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif' width='400' height='67' title='The CSS3 button animation effect - click to zoom'><span class='caption-text'>The CSS3 button animation effect &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif"><span class="caption-wrapper center"><img class="caption" src="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/animation.gif" width="400" height="67" title="The CSS3 button animation effect - click to zoom" /><span class="caption-text">The CSS3 button animation effect - click to zoom</span></span></a></p>
 
 <!--more-->
 
+<p>So, let’s see the html code of the button:</p>
 
-<p>So, let&rsquo;s see the html code of the button:</p>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!-- inside the article... --&gt;</span>
+</span><span class="line"><span class="nt">&lt;footer&gt;</span>
+</span><span class="line">    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;full-article&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">            Read on →
+</span><span class="line">            <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;full-article-hover&quot;</span> <span class="na">rel=</span><span class="s">&quot;full-article&quot;</span> <span class="na">href=</span><span class="s">&quot;/yourlink&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">                Read on →
+</span><span class="line">            <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/div&gt;</span>
+</span><span class="line"><span class="nt">&lt;/footer&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- inside the article... --&gt;</span>
-</span><span class='line'><span class="nt">&lt;footer&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;full-article&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>            Read on →
-</span><span class='line'>            <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;full-article-hover&quot;</span> <span class="na">rel=</span><span class="s">&quot;full-article&quot;</span> <span class="na">href=</span><span class="s">&quot;/yourlink&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>                Read on →
-</span><span class='line'>            <span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
-</span><span class='line'><span class="nt">&lt;/footer&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As you can see, there&rsquo;s no real magic but a simple anchor (or link, whatever) <code>a</code> inside a <code>div</code> all wrapped in a <code>footer</code> element.</p>
+<p>As you can see, there’s no real magic but a simple anchor (or link, whatever) <code>a</code> inside a <code>div</code> all wrapped in a <code>footer</code> element.</p>
 
 <p>The <code>footer</code> will be our viewport, the <code>div</code> will be the only element animated and it should translate top by the amount of his height as explained here:</p>
 
-<p><a href="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png' width='400' height='53' title='The animation explanation - click to zoom'><span class='caption-text'>The animation explanation &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png"><span class="caption-wrapper center"><img class="caption" src="http://www.mentalfaps.com/images/pure-css3-turnover-effect-animation-of-a-button-without-sprites/explanation.png" width="400" height="53" title="The animation explanation - click to zoom" /><span class="caption-text">The animation explanation - click to zoom</span></span></a></p>
 
 <p>So basically we need to have a fixed height and use a css transition to move the div up by his whole height.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="k">@mixin</span><span class="nf"> article-footer</span><span class="p">(</span><span class="nv">$height</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nt">article</span> <span class="nt">footer</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// Setting the viewport height</span>
-</span><span class='line'>        <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
-</span><span class='line'>        <span class="nt">div</span><span class="o">,</span> <span class="nt">a</span> <span class="p">{</span>
-</span><span class='line'>            <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
-</span><span class='line'>            <span class="na">position</span><span class="o">:</span> <span class="no">relative</span><span class="p">;</span>
-</span><span class='line'>            <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span><span class="na">ù</span>
-</span><span class='line'>            <span class="c1">// Setting the single div and the anchor to the same height equal to the viewport</span>
-</span><span class='line'>            <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
-</span><span class='line'>            <span class="c1">// Centering the text</span>
-</span><span class='line'>            <span class="na">line-height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">&amp;</span><span class="nc">.full-article</span> <span class="p">{</span>
-</span><span class='line'>                <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="k">&amp;</span><span class="nc">.full-article-hover</span> <span class="p">{</span>
-</span><span class='line'>                <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.5</span><span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="k">@mixin</span><span class="nf"> article-footer</span><span class="p">(</span><span class="nv">$height</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="nt">article</span> <span class="nt">footer</span> <span class="p">{</span>
+</span><span class="line">        <span class="c1">// Setting the viewport height</span>
+</span><span class="line">        <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class="line">        <span class="nt">div</span><span class="o">,</span> <span class="nt">a</span> <span class="p">{</span>
+</span><span class="line">            <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
+</span><span class="line">            <span class="na">position</span><span class="o">:</span> <span class="no">relative</span><span class="p">;</span>
+</span><span class="line">            <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span><span class="na">ù</span>
+</span><span class="line">            <span class="c1">// Setting the single div and the anchor to the same height equal to the viewport</span>
+</span><span class="line">            <span class="na">height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class="line">            <span class="c1">// Centering the text</span>
+</span><span class="line">            <span class="na">line-height</span><span class="o">:</span> <span class="nv">$height</span><span class="p">;</span>
+</span><span class="line">            <span class="k">&amp;</span><span class="nc">.full-article</span> <span class="p">{</span>
+</span><span class="line">                <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
+</span><span class="line">            <span class="p">}</span>
+</span><span class="line">            <span class="k">&amp;</span><span class="nc">.full-article-hover</span> <span class="p">{</span>
+</span><span class="line">                <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.5</span><span class="p">);</span>
+</span><span class="line">            <span class="p">}</span>
+</span><span class="line">        <span class="p">}</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p>You can see that I’ve wrapped all inside a <code>mixin</code> so I can easily use one-line of code to sett the different buttons height based on the viewport of the user’s browser.</p>
 
-<p>You can see that I&rsquo;ve wrapped all inside a <code>mixin</code> so I can easily use one-line of code to sett the different buttons height based on the viewport of the user&rsquo;s browser.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// The button will be 40px for every resolution</span>
-</span><span class='line'><span class="k">@include</span><span class="nd"> article-footer</span><span class="p">(</span><span class="mi">40</span><span class="kt">px</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-height</span><span class="nd">:</span> <span class="nt">650px</span><span class="o">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// Except if I browse the website with a screen that has a height &lt; 650</span>
-</span><span class='line'>    <span class="k">@include</span><span class="nd"> article-footer</span><span class="p">(</span><span class="mi">25</span><span class="kt">px</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// ... more media breakpoints ...</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="c1">// The button will be 40px for every resolution</span>
+</span><span class="line"><span class="k">@include</span><span class="nd"> article-footer</span><span class="p">(</span><span class="mi">40</span><span class="kt">px</span><span class="p">);</span>
+</span><span class="line">
+</span><span class="line"><span class="k">@media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-height</span><span class="nd">:</span> <span class="nt">650px</span><span class="o">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="c1">// Except if I browse the website with a screen that has a height &lt; 650</span>
+</span><span class="line">    <span class="k">@include</span><span class="nd"> article-footer</span><span class="p">(</span><span class="mi">25</span><span class="kt">px</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">// ... more media breakpoints ...</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>With <a href="http://compass-style.org/">Compass</a> I can use one of their mixin to super easily use <a href="http://compass-style.org/reference/compass/css3/transition/">CSS3 transitions</a>, so all I need to do is simply add this code to get the animation effect:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// Inside the previous code ...</span>
-</span><span class='line'><span class="k">&amp;</span><span class="nc">.full-article</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// This is needed for Firefox and Opera (afaik)</span>
-</span><span class='line'>    <span class="c1">// Because they can&#39;t perform a transition from auto to N pixels</span>
-</span><span class='line'>    <span class="na">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>    <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
-</span><span class='line'>    <span class="c1">// This line will tell which property has to translate</span>
-</span><span class='line'>    <span class="k">@include</span><span class="nd"> transition-property</span><span class="p">(</span><span class="no">top</span><span class="p">);</span>
-</span><span class='line'>    <span class="c1">// Tis mixin will set the transition duration</span>
-</span><span class='line'>    <span class="k">@include</span><span class="nd"> transition-duration</span><span class="p">(</span><span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// This will trigger the transition and set the &#39;destination&#39;</span>
-</span><span class='line'>        <span class="c1">// value of the top attribute on hover</span>
-</span><span class='line'>        <span class="na">top</span><span class="o">:</span> <span class="o">-</span><span class="nv">$height</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="c1">// Inside the previous code ...</span>
+</span><span class="line"><span class="k">&amp;</span><span class="nc">.full-article</span> <span class="p">{</span>
+</span><span class="line">    <span class="c1">// This is needed for Firefox and Opera (afaik)</span>
+</span><span class="line">    <span class="c1">// Because they can&#39;t perform a transition from auto to N pixels</span>
+</span><span class="line">    <span class="na">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="line">    <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">170</span><span class="o">,</span><span class="mi">0</span><span class="mf">.2</span><span class="p">);</span>
+</span><span class="line">    <span class="c1">// This line will tell which property has to translate</span>
+</span><span class="line">    <span class="k">@include</span><span class="nd"> transition-property</span><span class="p">(</span><span class="no">top</span><span class="p">);</span>
+</span><span class="line">    <span class="c1">// Tis mixin will set the transition duration</span>
+</span><span class="line">    <span class="k">@include</span><span class="nd"> transition-duration</span><span class="p">(</span><span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="p">);</span>
+</span><span class="line">    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span><span class="line">        <span class="c1">// This will trigger the transition and set the &#39;destination&#39;</span>
+</span><span class="line">        <span class="c1">// value of the top attribute on hover</span>
+</span><span class="line">        <span class="na">top</span><span class="o">:</span> <span class="o">-</span><span class="nv">$height</span><span class="p">;</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<p>So these <strong>25 lines of SCSS code</strong> make me puking rainbows just because they will be compiled to <strong>60+ lines of CSS code</strong> and basically there&rsquo;s why you should use Compass+SCSS or shoot yourself.
+<p>So these <strong>25 lines of SCSS code</strong> make me puking rainbows just because they will be compiled to <strong>60+ lines of CSS code</strong> and basically there’s why you should use Compass+SCSS or shoot yourself.
 <strong>PEACE!</strong></p>
 ]]></content>
   </entry>
@@ -180,315 +489,301 @@
 <p>The application has its core built in Backbone.js and uses jQuery Mobile to render itself.
 It also comunicates with a Django server that has an API built using Tastypie to get/set the data.</p>
 
-<p>The app is being compiled for Android and I actually have no experiences with Phonegap&rsquo;s iOs building process, but the principle is sureley the same.</p>
+<p>The app is being compiled for Android and I actually have no experiences with Phonegap’s iOs building process, but the principle is sureley the same.</p>
 
 <blockquote><p>I dont give a f**k about your app, just show us the code!</p></blockquote>
 
-
 <p>OK, OK, use the following steps to setup all the base things needed to correctly build a web app with Yeoman using a single Gruntfile:</p>
 
-<p><strong>NOTE</strong>: I&rsquo;ve used the Phonegap 2.7.0 version for this example app, I&rsquo;m sure that you&rsquo;ll figure out how to make it work for Phonegap 3+ (afaik it&rsquo;s easy).</p>
+<p><strong>NOTE</strong>: I’ve used the Phonegap 2.7.0 version for this example app, I’m sure that you’ll figure out how to make it work for Phonegap 3+ (afaik it’s easy).</p>
 
 <!--more-->
 
-
-<h2>The Setup</h2>
+<h2 id="the-setup">The Setup</h2>
 
 <p>First of all, use <a href="http://docs.phonegap.com/en/2.7.0/guide_getting-started_android_index.md.html#Getting%20Started%20with%20Android">THIS</a> guide to setup the Phonegap environment. Basically you need to install the Android ADT bundle and setup the global path to make you have the adb command in the terminal and stuff like that.
 Create a basic app using the Phonegap binary (inside <code>phonegap-2.7.0/lib/android/bin/</code>)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>./create ../../../../helloapp/hello_android com.example.hello hello
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">./create ../../../../helloapp/hello_android com.example.hello hello
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Install Yeoman and the basic backbone generator (or the basic <code>generator-webapp</code> if you prefer)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>npm install -g yo <span class="o">&amp;&amp;</span> npm install -g generator-backbone
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">npm install -g yo <span class="o">&amp;&amp;</span> npm install -g generator-backbone
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p>Create a Yeoman project inside the <code>helloapp</code> folder that you’ve created before with the Phonegap’s create command</p>
 
-<p>Create a Yeoman project inside the <code>helloapp</code> folder that you&rsquo;ve created before with the Phonegap&rsquo;s create command</p>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">cd </span>helloapp <span class="c"># whenever the helloapp is</span>
+</span><span class="line">mkdir Hello <span class="o">&amp;&amp;</span> <span class="nb">cd </span>Hello
+</span><span class="line">yo backbone --coffee --template-framework<span class="o">=</span>handlebars <span class="c"># You can use different configurations ofc</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>helloapp <span class="c"># whenever the helloapp is</span>
-</span><span class='line'>mkdir Hello <span class="o">&amp;&amp;</span> <span class="nb">cd </span>Hello
-</span><span class='line'>yo backbone --coffee --template-framework<span class="o">=</span>handlebars <span class="c"># You can use different configurations ofc</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>As you can see, this command will generate a shitload of files in the current directory. Note that the directory name has the first letter uppercase, ‘cause the backbone generator will use that name as the basic namespace.</p>
 
+<p>Install <a href="http://emulate.phonegap.com/">Ripple</a> for Chrome if you want to have a nice looking of the whole app in a pseudo-device. Unfortunately the Phonegap “integration” seems to be broken at the moment, so if you activate the plugin just say that you are testing a normal mobile Web app.</p>
 
-<p>As you can see, this command will generate a shitload of files in the current directory. Note that the directory name has the first letter uppercase, &lsquo;cause the backbone generator will use that name as the basic namespace.</p>
+<p>So here’s the trick, you must delete all the asset folder inside <code>helloapp/hello_android/assets/www</code> to allow you to build the app from Yeoman. Create a link from the <code>dist</code> directory of the Yeoman app to the <code>www</code> directory of the Phonegap - android app.</p>
 
-<p>Install <a href="http://emulate.phonegap.com/">Ripple</a> for Chrome if you want to have a nice looking of the whole app in a pseudo-device. Unfortunately the Phonegap &ldquo;integration&rdquo; seems to be broken at the moment, so if you activate the plugin just say that you are testing a normal mobile Web app.</p>
+<p><strong>Don’t</strong> forget to copy the <code>cordova*.js</code> file to your <code>vendor</code> folder of the Yeoman app.</p>
 
-<p>So here&rsquo;s the trick, you must delete all the asset folder inside <code>helloapp/hello_android/assets/www</code> to allow you to build the app from Yeoman. Create a link from the <code>dist</code> directory of the Yeoman app to the <code>www</code> directory of the Phonegap &ndash; android app.</p>
-
-<p><strong>Don&rsquo;t</strong> forget to copy the <code>cordova*.js</code> file to your <code>vendor</code> folder of the Yeoman app.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>cp ../hello_android/assets/www/cordova*.js app/scripts/vendor
-</span><span class='line'>rm ../hello_android/assets/www/* -rf
-</span><span class='line'>ln -s ../hello_android/assets/www dist
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">cp ../hello_android/assets/www/cordova*.js app/scripts/vendor
+</span><span class="line">rm ../hello_android/assets/www/* -rf
+</span><span class="line">ln -s ../hello_android/assets/www dist
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Your directory tree should look pretty much like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>├── Hello
-</span><span class='line'>│   ├── app
-</span><span class='line'>│   ├── dist -&gt; ../hello_android/assets/www/
-</span><span class='line'>│   ├── node_modules
-</span><span class='line'>│   └── <span class="nb">test</span>
-</span><span class='line'>└── hello_android
-</span><span class='line'>    ├── assets
-</span><span class='line'>    ├── bin
-</span><span class='line'>    ├── cordova
-</span><span class='line'>    ├── libs
-</span><span class='line'>    ├── res
-</span><span class='line'>    └── src
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">├── Hello
+</span><span class="line">│   ├── app
+</span><span class="line">│   ├── dist -&gt; ../hello_android/assets/www/
+</span><span class="line">│   ├── node_modules
+</span><span class="line">│   └── <span class="nb">test</span>
+</span><span class="line">└── hello_android
+</span><span class="line">    ├── assets
+</span><span class="line">    ├── bin
+</span><span class="line">    ├── cordova
+</span><span class="line">    ├── libs
+</span><span class="line">    ├── res
+</span><span class="line">    └── src
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<h2>Basic configurations</h2>
+<h2 id="basic-configurations">Basic configurations</h2>
 
 <p>Add these lines in the <code>&lt;head&gt;</code> section of the <code>app/index.html</code> file</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- build:js scripts/cordova.js --&gt;</span>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;scripts/vendor/cordova-2.7.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'><span class="c">&lt;!-- endbuild --&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!-- build:js scripts/cordova.js --&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;scripts/vendor/cordova-2.7.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="c">&lt;!-- endbuild --&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Open the Gruntfile and add these two lines</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Inside the Gruntfile...</span>
-</span><span class='line'><span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">files</span><span class="o">:</span> <span class="p">[{</span>
-</span><span class='line'>            <span class="nx">expand</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">dot</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">cwd</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.app %&gt;&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.dist %&gt;&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">src</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>                <span class="s1">&#39;cordova-*.js&#39;</span><span class="p">,</span> <span class="err">#</span> <span class="nx">these</span> <span class="nx">two</span> <span class="nx">lines</span> <span class="nx">are</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">make</span> <span class="nx">Yeoman</span> <span class="nx">include</span> <span class="nx">the</span> <span class="nx">cordova</span> <span class="nx">js</span> <span class="nx">plugin</span>
-</span><span class='line'>                <span class="s1">&#39;cordova_plugins.json&#39;</span><span class="p">,</span> <span class="err">#</span>
-</span><span class='line'>                <span class="s1">&#39;*.{ico,txt}&#39;</span><span class="p">,</span>
-</span><span class='line'>                <span class="s1">&#39;.htaccess&#39;</span><span class="p">,</span>
-</span><span class='line'>                <span class="s1">&#39;images/{,*/}*.{webp,gif}&#39;</span>
-</span><span class='line'>            <span class="p">]</span>
-</span><span class='line'>        <span class="p">}]</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">},</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="c1">// Inside the Gruntfile...</span>
+</span><span class="line"><span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">files</span><span class="o">:</span> <span class="p">[{</span>
+</span><span class="line">            <span class="nx">expand</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">dot</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">cwd</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.app %&gt;&#39;</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;&lt;%= yeoman.dist %&gt;&#39;</span><span class="p">,</span>
+</span><span class="line">            <span class="nx">src</span><span class="o">:</span> <span class="p">[</span>
+</span><span class="line">                <span class="s1">&#39;cordova-*.js&#39;</span><span class="p">,</span> <span class="err">#</span> <span class="nx">these</span> <span class="nx">two</span> <span class="nx">lines</span> <span class="nx">are</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">make</span> <span class="nx">Yeoman</span> <span class="nx">include</span> <span class="nx">the</span> <span class="nx">cordova</span> <span class="nx">js</span> <span class="nx">plugin</span>
+</span><span class="line">                <span class="s1">&#39;cordova_plugins.json&#39;</span><span class="p">,</span> <span class="err">#</span>
+</span><span class="line">                <span class="s1">&#39;*.{ico,txt}&#39;</span><span class="p">,</span>
+</span><span class="line">                <span class="s1">&#39;.htaccess&#39;</span><span class="p">,</span>
+</span><span class="line">                <span class="s1">&#39;images/{,*/}*.{webp,gif}&#39;</span>
+</span><span class="line">            <span class="p">]</span>
+</span><span class="line">        <span class="p">}]</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Disable yuglify if you are using backbone, because it does not allow the app to load the files in the correct order.
-I&rsquo;ve noticed that if you don&rsquo;t do this, the <code>main.js</code> files in the <code>www</code> directory will always have the scripts included in
-an apparently random order (so it&rsquo;s a huge problem if you&rsquo;re using Backbone)</p>
+I’ve noticed that if you don’t do this, the <code>main.js</code> files in the <code>www</code> directory will always have the scripts included in
+an apparently random order (so it’s a huge problem if you’re using Backbone)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;build&#39;</span><span class="p">,</span> <span class="p">[</span>
-</span><span class='line'>    <span class="s1">&#39;clean:dist&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;coffee&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;createDefaultTemplate&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;handlebars&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;compass:dist&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;useminPrepare&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;imagemin&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;htmlmin&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;concat&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;cssmin&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="c1">// &#39;uglify&#39;,</span>
-</span><span class='line'>    <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;rev&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;usemin&#39;</span>
-</span><span class='line'><span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;build&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class="line">    <span class="s1">&#39;clean:dist&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;coffee&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;createDefaultTemplate&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;handlebars&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;compass:dist&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;useminPrepare&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;imagemin&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;htmlmin&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;concat&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;cssmin&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="c1">// &#39;uglify&#39;,</span>
+</span><span class="line">    <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;rev&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;usemin&#39;</span>
+</span><span class="line"><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<p>Let&rsquo;s write a basic main.coffee that allow us to have two different behaviour if we are browsing from Chrome (for debug purposes) or directly from the app:</p>
-
-<figure class='code'><figcaption><span> (main.coffee)</span> <a href='http://www.mentalfaps.com/downloads/code/main.coffee'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nv">Hello =</span>
-</span><span class='line'>  <span class="nv">Models: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">Collections: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">Views: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">Routers: </span><span class="p">{}</span>
-</span><span class='line'>  <span class="nv">init: </span><span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="s">&#39;use strict&#39;</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Hello from Backbone!&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Waiting for the device to be ready...&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">$</span> <span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">false</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;init Started&#39;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">not</span> <span class="nb">window</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">available</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE IN DEBUG&quot;</span>
-</span><span class='line'>        <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">true</span>
-</span><span class='line'>        <span class="c1"># In this case we should be in a desktop application (debug)</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1"># Login with the test user (that has limited privileges and/or makes the app point to another endpoint)</span>
-</span><span class='line'>        <span class="nv">Hello.BASEURL = </span><span class="s">&#39;localhost:8000&#39;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
-</span><span class='line'>        <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1"># Waiting for phoneGap to load</span>
-</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;deviceready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE NOT IN DEBUG&quot;</span>
-</span><span class='line'>        <span class="c1"># PhoneGap is loaded</span>
-</span><span class='line'>        <span class="k">try</span>
-</span><span class='line'>            <span class="k">throw</span> <span class="s">&quot;Cordova variable does not exist. Check that you have included cordova.js correctly&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">and</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">Cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c1"># FB plugin initialized</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="nv">Hello.BASEURL = </span><span class="s">&#39;api.yourdomain.com&#39;</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
-</span><span class='line'>            <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-</span><span class='line'>        <span class="k">catch</span> <span class="nx">e</span>
-</span><span class='line'>            <span class="nb">window</span><span class="p">.</span><span class="nv">last_error = </span><span class="nx">e</span>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">e</span>
-</span><span class='line'>            <span class="k">throw</span> <span class="nx">e</span>
-</span><span class='line'>    <span class="p">,</span> <span class="kc">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p>Let’s write a basic main.coffee that allow us to have two different behaviour if we are browsing from Chrome (for debug purposes) or directly from the app:
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span> (main.coffee)</span> <a href="http://www.mentalfaps.com/downloads/code/main.coffee">download</a>&lt;/figcaption&gt;
+ &lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="coffeescript"><span class="line"><span class="nb">window</span><span class="p">.</span><span class="nv">Hello =</span>
+</span><span class="line">  <span class="nv">Models: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">Collections: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">Views: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">Routers: </span><span class="p">{}</span>
+</span><span class="line">  <span class="nv">init: </span><span class="nf">-&gt;</span>
+</span><span class="line">    <span class="s">&#39;use strict&#39;</span>
+</span><span class="line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Hello from Backbone!&#39;</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Waiting for the device to be ready...&#39;</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">$</span> <span class="nf">-&gt;</span>
+</span><span class="line">    <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">false</span>
+</span><span class="line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;init Started&#39;</span>
+</span><span class="line">    <span class="k">if</span> <span class="o">not</span> <span class="nb">window</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">available</span>
+</span><span class="line">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE IN DEBUG&quot;</span>
+</span><span class="line">        <span class="nb">window</span><span class="p">.</span><span class="nv">DEBUG = </span><span class="kc">true</span>
+</span><span class="line">        <span class="c1"># In this case we should be in a desktop application (debug)</span>
+</span><span class="line">
+</span><span class="line">        <span class="c1"># Login with the test user (that has limited privileges and/or makes the app point to another endpoint)</span>
+</span><span class="line">        <span class="nv">Hello.BASEURL = </span><span class="s">&#39;localhost:8000&#39;</span>
+</span><span class="line">
+</span><span class="line">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
+</span><span class="line">        <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1"># Waiting for phoneGap to load</span>
+</span><span class="line">    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;deviceready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class="line">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;WE ARE NOT IN DEBUG&quot;</span>
+</span><span class="line">        <span class="c1"># PhoneGap is loaded</span>
+</span><span class="line">        <span class="k">try</span>
+</span><span class="line">            <span class="k">throw</span> <span class="s">&quot;Cordova variable does not exist. Check that you have included cordova.js correctly&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">and</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">Cordova</span> <span class="o">is</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">            <span class="c1"># FB plugin initialized</span>
+</span><span class="line">
+</span><span class="line">            <span class="nv">Hello.BASEURL = </span><span class="s">&#39;api.yourdomain.com&#39;</span>
+</span><span class="line">
+</span><span class="line">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Initializing the main router&#39;</span>
+</span><span class="line">            <span class="nx">Hello</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+</span><span class="line">        <span class="k">catch</span> <span class="nx">e</span>
+</span><span class="line">            <span class="nb">window</span><span class="p">.</span><span class="nv">last_error = </span><span class="nx">e</span>
+</span><span class="line">            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">e</span>
+</span><span class="line">            <span class="k">throw</span> <span class="nx">e</span>
+</span><span class="line">    <span class="p">,</span> <span class="kc">false</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 
 <p>Finally, create an empty <code>cordova_plugins.json</code> in the root of the <code>app</code> folder as required by Phonegap (for cross-domain issues if I remember well)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>touch app/cordova_plugins.json
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">touch app/cordova_plugins.json
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<h2 id="testing">Testing</h2>
 
-<h2>Testing</h2>
-
-<p>If you managed to do everything in the correct way, let&rsquo;s test the mudafucka!</p>
+<p>If you managed to do everything in the correct way, let’s test the mudafucka!</p>
 
 <p>After <em>ALL</em> these passages, you should be able to use the <code>grunt server</code> command from the <code>Hello</code> folder to use Yeoman in the browser
 along with Ripple. You should see something like this:</p>
 
-<p><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/using-yeoman-with-phonegap/ripple.png' width='' height='' title='The base app with Ripple in Chrome'><span class='caption-text'>The base app with Ripple in Chrome</span></span></p>
+<p><span class="caption-wrapper center"><img class="caption" src="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/ripple.png" width="" height="" title="The base app with Ripple in Chrome" /><span class="caption-text">The base app with Ripple in Chrome</span></span></p>
 
 <p>The JS console should show ~this:</p>
 
-<p><a href="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/debug.png"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/using-yeoman-with-phonegap/debug.png' width='400' height='40' title='The JS console screenshot - click to zoom'><span class='caption-text'>The JS console screenshot &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/debug.png"><span class="caption-wrapper center"><img class="caption" src="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/debug.png" width="400" height="40" title="The JS console screenshot - click to zoom" /><span class="caption-text">The JS console screenshot - click to zoom</span></span></a></p>
 
 <p>Notice the <code>WE ARE IN DEBUG</code> part that indicates the flow of the code. If we launch a <code>grunt --force</code> from the <code>Hello</code> folder, we will not have
 all the code compiled in the assets/www folder of our Android project.</p>
 
 <p>Just use Eclipse and open the <code>hello_android</code> folder as an existing Android project and launch it with an emulator or your phone and you should see these lines:</p>
 
-<p><a href="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/logcat.png"><span class='caption-wrapper center'><img class='caption' src='http://www.mentalfaps.com/images/using-yeoman-with-phonegap/logcat.png' width='400' height='111' title='The logcat screenshot - click to zoom'><span class='caption-text'>The logcat screenshot &ndash; click to zoom</span></span></a></p>
+<p><a href="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/logcat.png"><span class="caption-wrapper center"><img class="caption" src="http://www.mentalfaps.com/images/using-yeoman-with-phonegap/logcat.png" width="400" height="111" title="The logcat screenshot - click to zoom" /><span class="caption-text">The logcat screenshot - click to zoom</span></span></a></p>
 
 <p>As you can see, the code followed another flow in comparison with the webapp. In the end these passages allow you to have this kind of workflow:</p>
 
 <ol>
-<li>You code with your favorite editor while launching <code>grunt server</code> to have <code>LiveReload</code> active and be able to see your modifications in <strong>REAL TIME</strong> (which is the biggest plus)</li>
-<li>Test everything related to the app with Ripple, being able to use the JS console to directly debug your code</li>
-<li>Run <code>grunt --force</code> to build your app to the android project</li>
-<li>Test it every time you need it to an emulator via Eclipse</li>
+  <li>You code with your favorite editor while launching <code>grunt server</code> to have <code>LiveReload</code> active and be able to see your modifications in <strong>REAL TIME</strong> (which is the biggest plus)</li>
+  <li>Test everything related to the app with Ripple, being able to use the JS console to directly debug your code</li>
+  <li>Run <code>grunt --force</code> to build your app to the android project</li>
+  <li>Test it every time you need it to an emulator via Eclipse</li>
 </ol>
 
-
-<p>I&rsquo;m sure that there are some simplier ways to achieve this but right now this kind of workflow is still mainly unused from the mass. I personally digg too much the livereload advantages along with the ability to debug without the need to place thousands of <code>console.log</code>. Keep also in mind that these libraries are in continue development so its pretty hard to find the right way to do things. <strong>ENJOY!</strong></p>
+<p>I’m sure that there are some simplier ways to achieve this but right now this kind of workflow is still mainly unused from the mass. I personally digg too much the livereload advantages along with the ability to debug without the need to place thousands of <code>console.log</code>. Keep also in mind that these libraries are in continue development so its pretty hard to find the right way to do things. <strong>ENJOY!</strong></p>
 ]]></content>
   </entry>
   
@@ -499,9 +794,9 @@ all the code compiled in the assets/www folder of our Android project.</p>
     <id>http://www.mentalfaps.com/blog/2013/08/27/the-first-one</id>
     <content type="html"><![CDATA[<p>Hey!</p>
 
-<p>I&rsquo;ve setup this blog just because I always wanted one. Unfortunately I&rsquo;m a man of few words so it&rsquo;s better if I&rsquo;ll start to write some code ASAP :O.</p>
+<p>I’ve setup this blog just because I always wanted one. Unfortunately I’m a man of few words so it’s better if I’ll start to write some code ASAP :O.</p>
 
-<p>Starting from this <a href="http://octopress.org/">Octopress</a> theme, I&rsquo;ll try to do some mass modifications and deploy a new theme. As usual, I &lsquo;just&rsquo; need to take some time for that, even if the gamer that&rsquo;s inside me is crying.</p>
+<p>Starting from this <a href="http://octopress.org/">Octopress</a> theme, I’ll try to do some mass modifications and deploy a new theme. As usual, I ‘just’ need to take some time for that, even if the gamer that’s inside me is crying.</p>
 
 <p>Seems like we gotta keep the beast chained!</p>
 ]]></content>
