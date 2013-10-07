@@ -113,266 +113,282 @@
   </header>
 
 
-<p>Hey! it’s been a while I know, but I’ve been into the deep gaming world and I basically burnt all my spare time playing <a href="http://dota2.com/">Dota2</a> (which btw is pretty awesome!).</p>
+<p>Hey! it&rsquo;s been a while I know, but I&rsquo;ve been into the deep gaming world and I basically burnt all my spare time playing <a href="http://dota2.com/">Dota2</a> (which btw is pretty awesome!).</p>
 
-<p>Well, actually I also had the chance to study <a href="http://angularjs.org/">Angular.js</a> especially after I saw that the Yeoman’s <a href="https://github.com/yeoman/generator-angular">generator-angular</a> has introduced the <code>--coffee</code> option to bootstrap a whole angular application written with the beloved CoffeeScript.</p>
+<p>Well, actually I also had the chance to study <a href="http://angularjs.org/">Angular.js</a> especially after I saw that the Yeoman&rsquo;s <a href="https://github.com/yeoman/generator-angular">generator-angular</a> has introduced the <code>--coffee</code> option to bootstrap a whole angular application written with the beloved CoffeeScript.</p>
 
-<p>Unfortunately, the s**t doesn’t work. I mean… there are still a few things to setup.
+<p>Unfortunately, the s**t doesn&rsquo;t work. I mean&hellip; there are still a few things to setup.</p>
+
 <!--more-->
-Initial setup
-—
-Be sure to have installed Yeoman and his generator-angular so just basically copy this line to the shell</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="bash"><span class="line">npm install -g yo generator-angular
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2>Initial setup</h2>
+
+<p>Be sure to have installed Yeoman and his generator-angular so just basically copy this line to the shell</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>npm install -g yo generator-angular
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>put a <code>sudo</code> in front of it if you have the global NPM packages under <code>/usr/lib/node_modules/</code> (be aware that using <code>sudo npm</code> is not the right way to install global packages, but whatever).</p>
 
-<p>Let’s rock the generator on a directory using</p>
+<p>Let&rsquo;s rock the generator on a directory using</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="bash"><span class="line">mkdir testapp <span class="o">&amp;&amp;</span> <span class="nb">cd </span>testapp <span class="o">&amp;&amp;</span> yo angular Test --coffee
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir testapp <span class="o">&amp;&amp;</span> <span class="nb">cd </span>testapp <span class="o">&amp;&amp;</span> yo angular Test --coffee
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Yeoman will ask you a series of question, you can just take the default answers by pressing Enter.</p>
 
-<h2 id="using-the-latest-angularjs-library">Using the latest Angular.js library</h2>
-<p>So here’s the first problem. The version that is included with the generator is actually outdated (<code>1.0.8</code> right now, while Angular is at <code>1.2.0rc</code> with the latest stable <code>1.1.5</code>).</p>
+<h2>Using the latest Angular.js library</h2>
+
+<p>So here&rsquo;s the first problem. The version that is included with the generator is actually outdated (<code>1.0.8</code> right now, while Angular is at <code>1.2.0rc</code> with the latest stable <code>1.1.5</code>).</p>
 
 <blockquote><p>OMFG you are a retard, just use the f**king 1.0.8</p></blockquote>
 
-<p>Nice observation. Except that it’s stupid and you sureley dont want to start a new project with an outdated library. I also need the latest version to make it easily work using my API backend (<a href="http://tastypieapi.org/">Tastypie</a>). I need in particular the <code>transformResponse</code> option introduced in the <code>1.1.x</code> branch as seen <a href="http://stackoverflow.com/a/17332903/771589">here</a>.</p>
 
-<p>To fix this issue, you have to change the <code>bower.json</code> file that you find in the root of the project that you’ve just created.</p>
+<p>Nice observation. Except that it&rsquo;s stupid and you sureley dont want to start a new project with an outdated library. I also need the latest version to make it easily work using my API backend (<a href="http://tastypieapi.org/">Tastypie</a>). I need in particular the <code>transformResponse</code> option introduced in the <code>1.1.x</code> branch as seen <a href="http://stackoverflow.com/a/17332903/771589">here</a>.</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">{</span>
-</span><span class="line">  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span>
-</span><span class="line">  <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
-</span><span class="line">  <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span class="line">    <span class="s2">&quot;angular-latest&quot;</span><span class="o">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
-</span><span class="line">    <span class="s2">&quot;json3&quot;</span><span class="o">:</span> <span class="s2">&quot;~3.2.4&quot;</span><span class="p">,</span>
-</span><span class="line">    <span class="s2">&quot;jquery&quot;</span><span class="o">:</span> <span class="s2">&quot;~1.9.1&quot;</span><span class="p">,</span>
-</span><span class="line">    <span class="s2">&quot;bootstrap-sass&quot;</span><span class="o">:</span> <span class="s2">&quot;~2.3.1&quot;</span><span class="p">,</span>
-</span><span class="line">    <span class="s2">&quot;es5-shim&quot;</span><span class="o">:</span> <span class="s2">&quot;~2.0.8&quot;</span>
-</span><span class="line">  <span class="p">},</span>
-</span><span class="line">  <span class="s2">&quot;devDependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span class="line">  <span class="p">}</span>
-</span><span class="line"><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>To fix this issue, you have to change the <code>bower.json</code> file that you find in the root of the project that you&rsquo;ve just created.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;angular-latest&quot;</span><span class="o">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;json3&quot;</span><span class="o">:</span> <span class="s2">&quot;~3.2.4&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;jquery&quot;</span><span class="o">:</span> <span class="s2">&quot;~1.9.1&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;bootstrap-sass&quot;</span><span class="o">:</span> <span class="s2">&quot;~2.3.1&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;es5-shim&quot;</span><span class="o">:</span> <span class="s2">&quot;~2.0.8&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="s2">&quot;devDependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Then launch this in the shell to remove the outdated libraries and install the new one:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class="bash"><span class="line">bower uninstall angular angular-cookies angular-mocks angular-resource angular-sanitize angular-scenario
-</span><span class="line">bower install
-</span><span class="line"><span class="c"># These lines are used to compile angular</span>
-</span><span class="line"><span class="nb">cd </span>app/bower_components/angular-latest/
-</span><span class="line">npm install
-</span><span class="line">grunt package
-</span><span class="line"><span class="nb">cd</span> ../../
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bower uninstall angular angular-cookies angular-mocks angular-resource angular-sanitize angular-scenario
+</span><span class='line'>bower install
+</span><span class='line'><span class="c"># These lines are used to compile angular</span>
+</span><span class='line'><span class="nb">cd </span>app/bower_components/angular-latest/
+</span><span class='line'>npm install
+</span><span class='line'>grunt package
+</span><span class='line'><span class="nb">cd</span> ../../
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>We also need to fix the paths in a couple of files, open up <code>app/index.html</code> and update the new path for the angular libraries</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/jquery/jquery.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class="line">
-</span><span class="line"><span class="c">&lt;!-- build:js scripts/plugins.js --&gt;</span>
-</span><span class="line">...
-</span><span class="line"><span class="c">&lt;!-- endbuild --&gt;</span>
-</span><span class="line">
-</span><span class="line"><span class="c">&lt;!-- build:js scripts/modules.js --&gt;</span>
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-resource.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-cookies.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-sanitize.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class="line"><span class="c">&lt;!-- endbuild --&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/jquery/jquery.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- build:js scripts/plugins.js --&gt;</span>
+</span><span class='line'>...
+</span><span class='line'><span class="c">&lt;!-- endbuild --&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- build:js scripts/modules.js --&gt;</span>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-resource.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-cookies.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular-latest/build/angular-sanitize.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'><span class="c">&lt;!-- endbuild --&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Open also the <code>karma.conf.js</code> and update the paths aswell</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="c1">// list of files / patterns to load in the browser</span>
-</span><span class="line"><span class="nx">files</span><span class="o">:</span> <span class="p">[</span>
-</span><span class="line">  <span class="s1">&#39;app/bower_components/angular-latest/build/angular.js&#39;</span><span class="p">,</span>
-</span><span class="line">  <span class="s1">&#39;app/bower_components/angular-latest/build/angular-mocks.js&#39;</span><span class="p">,</span>
-</span><span class="line">  <span class="s1">&#39;app/scripts/*.coffee&#39;</span><span class="p">,</span>
-</span><span class="line">  <span class="s1">&#39;app/scripts/**/*.coffee&#39;</span><span class="p">,</span>
-</span><span class="line">  <span class="s1">&#39;test/mock/**/*.coffee&#39;</span><span class="p">,</span>
-</span><span class="line">  <span class="s1">&#39;test/spec/**/*.coffee&#39;</span>
-</span><span class="line"><span class="p">],</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// list of files / patterns to load in the browser</span>
+</span><span class='line'><span class="nx">files</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>  <span class="s1">&#39;app/bower_components/angular-latest/build/angular.js&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;app/bower_components/angular-latest/build/angular-mocks.js&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;app/scripts/*.coffee&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;app/scripts/**/*.coffee&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;test/mock/**/*.coffee&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;test/spec/**/*.coffee&#39;</span>
+</span><span class='line'><span class="p">],</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h2 id="setting-up-the-tests">Setting up the tests</h2>
+
+<h2>Setting up the tests</h2>
+
 <p>Somehow the e2e tests are not contemplated with this generator. We need to set them up opening the <code>Gruntfile.js</code></p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">karma</span><span class="o">:</span> <span class="p">{</span>
-</span><span class="line">  <span class="nx">unit</span><span class="o">:</span> <span class="p">{</span>
-</span><span class="line">    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma.conf.js&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="nx">singleRun</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class="line">  <span class="p">}</span>
-</span><span class="line"><span class="p">},</span>
-</span><span class="line"><span class="c1">// Substitute this piece of code with this</span>
-</span><span class="line"><span class="nx">karma</span><span class="o">:</span> <span class="p">{</span>
-</span><span class="line">  <span class="nx">e2e</span><span class="o">:</span> <span class="p">{</span>
-</span><span class="line">    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma-e2e.conf.js&#39;</span><span class="p">,</span>
-</span><span class="line">  <span class="p">},</span>
-</span><span class="line">  <span class="nx">unit</span><span class="o">:</span> <span class="p">{</span>
-</span><span class="line">    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma.conf.js&#39;</span><span class="p">,</span>
-</span><span class="line">  <span class="p">}</span>
-</span><span class="line"><span class="p">},</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">karma</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">unit</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma.conf.js&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">singleRun</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">},</span>
+</span><span class='line'><span class="c1">// Substitute this piece of code with this</span>
+</span><span class='line'><span class="nx">karma</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">e2e</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma-e2e.conf.js&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">unit</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;karma.conf.js&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>And at the bottom of the file</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-</pre></td><td class="code"><pre><code class="javascript"><span class="line">  <span class="c1">// REMOVE THIS TASK</span>
-</span><span class="line">  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[</span>
-</span><span class="line">    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;connect:test&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;karma&#39;</span>
-</span><span class="line">  <span class="p">]);</span>
-</span><span class="line">
-</span><span class="line">  <span class="c1">// Change that piece of code with these two, to enable the test:unit and test:e2e tasks</span>
-</span><span class="line">  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test:unit&#39;</span><span class="p">,</span> <span class="p">[</span>
-</span><span class="line">    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;connect:test&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;karma:unit&#39;</span>
-</span><span class="line">  <span class="p">]);</span>
-</span><span class="line">
-</span><span class="line">  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test:e2e&#39;</span><span class="p">,</span> <span class="p">[</span>
-</span><span class="line">    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;connect:livereload&#39;</span><span class="p">,</span>
-</span><span class="line">    <span class="s1">&#39;karma:e2e&#39;</span>
-</span><span class="line">  <span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="c1">// REMOVE THIS TASK</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;connect:test&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;karma&#39;</span>
+</span><span class='line'>  <span class="p">]);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Change that piece of code with these two, to enable the test:unit and test:e2e tasks</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test:unit&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;connect:test&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;karma:unit&#39;</span>
+</span><span class='line'>  <span class="p">]);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test:e2e&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>    <span class="s1">&#39;clean:server&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;concurrent:test&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;autoprefixer&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;connect:livereload&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;karma:e2e&#39;</span>
+</span><span class='line'>  <span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>This operation will enable two different tasks that you can launch with <code>grunt test:unit</code> and <code>grunt test:e2e</code> with their respective behaviour.</p>
 
-<h2 id="basic-example-of-a-restful-angular-service-calling-tastypie-api">Basic example of a RESTful Angular service calling Tastypie API</h2>
+<h2>Basic example of a RESTful Angular service calling Tastypie API</h2>
+
 <p>So, if you have followed the steps you should be able to run the application using <code>grunt server</code> and see the typical Yeoman greeting:</p>
 
-<p><a href="/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png"><span class="caption-wrapper center"><img class="caption" src="/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png" width="400" height="223" title="The Yeoman base view - click to zoom" /><span class="caption-text">The Yeoman base view - click to zoom</span></span></a></p>
+<p><a href="/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png"><span class='caption-wrapper center'><img class='caption' src='/images/setting-up-yeoman-and-angular-using-coffeescript/alloallo.png' width='400' height='223' title='The Yeoman base view - click to zoom'><span class='caption-text'>The Yeoman base view &ndash; click to zoom</span></span></a></p>
 
-<p>Let’s get and display a list via AJAX then. First, we have to create a new service using <code>yo angular:factory MyObject</code>. This will create two files, one is the real service, the other is the corresponding test file.</p>
+<p>Let&rsquo;s get and display a list via AJAX then. First, we have to create a new service using <code>yo angular:factory MyObject</code>. This will create two files, one is the real service, the other is the corresponding test file.</p>
 
 <p>Open the new file under <code>app/scripts/services/MyObject.coffee</code> and substitute it with this:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="s">&#39;use strict&#39;</span><span class="p">;</span>
-</span><span class="line">
-</span><span class="line"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s">&#39;TestApp.services&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;ngResource&#39;</span><span class="p">]).</span><span class="nx">factory</span> <span class="s">&#39;MyObject&#39;</span><span class="p">,[</span><span class="s">&#39;$resource&#39;</span><span class="p">,</span> <span class="s">&#39;$http&#39;</span><span class="p">,</span> <span class="nf">($resource, $http) -&gt;</span>
-</span><span class="line">    <span class="nx">$resource</span> <span class="s">&#39;http://localhost:8000\:8000/your/api/endpoint/&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{</span>
-</span><span class="line">        <span class="nv">query:</span>
-</span><span class="line">            <span class="nv">method: </span><span class="s">&#39;GET&#39;</span>
-</span><span class="line">            <span class="nv">isArray: </span><span class="kc">true</span>
-</span><span class="line">            <span class="nv">transformResponse: </span><span class="nx">$http</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">transformResponse</span><span class="p">.</span><span class="nx">concat</span> <span class="p">[</span><span class="nf">(data, headersGetter) -&gt;</span>
-</span><span class="line">                <span class="k">if</span> <span class="nx">data</span><span class="o">?</span> <span class="o">and</span> <span class="nx">data</span> <span class="o">isnt</span> <span class="s">&#39;&#39;</span>
-</span><span class="line">                    <span class="nv">result = </span><span class="nx">data</span><span class="p">.</span><span class="nx">objects</span>
-</span><span class="line">                    <span class="nv">result.meta = </span><span class="nx">data</span><span class="p">.</span><span class="nx">meta</span>
-</span><span class="line">                    <span class="nx">result</span>
-</span><span class="line">            <span class="p">]</span>
-</span><span class="line">    <span class="p">}</span>
-</span><span class="line"><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="s">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s">&#39;TestApp.services&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;ngResource&#39;</span><span class="p">]).</span><span class="nx">factory</span> <span class="s">&#39;MyObject&#39;</span><span class="p">,[</span><span class="s">&#39;$resource&#39;</span><span class="p">,</span> <span class="s">&#39;$http&#39;</span><span class="p">,</span> <span class="nf">($resource, $http) -&gt;</span>
+</span><span class='line'>    <span class="nx">$resource</span> <span class="s">&#39;http://localhost:8000\:8000/your/api/endpoint/&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">query:</span>
+</span><span class='line'>            <span class="nv">method: </span><span class="s">&#39;GET&#39;</span>
+</span><span class='line'>            <span class="nv">isArray: </span><span class="kc">true</span>
+</span><span class='line'>            <span class="nv">transformResponse: </span><span class="nx">$http</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">transformResponse</span><span class="p">.</span><span class="nx">concat</span> <span class="p">[</span><span class="nf">(data, headersGetter) -&gt;</span>
+</span><span class='line'>                <span class="k">if</span> <span class="nx">data</span><span class="o">?</span> <span class="o">and</span> <span class="nx">data</span> <span class="o">isnt</span> <span class="s">&#39;&#39;</span>
+</span><span class='line'>                    <span class="nv">result = </span><span class="nx">data</span><span class="p">.</span><span class="nx">objects</span>
+</span><span class='line'>                    <span class="nv">result.meta = </span><span class="nx">data</span><span class="p">.</span><span class="nx">meta</span>
+</span><span class='line'>                    <span class="nx">result</span>
+</span><span class='line'>            <span class="p">]</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>This will:
 * Inject the <code>ngResource</code> object inside the factory, allowing us to define a new <code>$resource</code>
@@ -382,45 +398,49 @@ Be sure to have installed Yeoman and his generator-angular so just basically cop
 
 <p>This is what the main controller has become:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="s">&#39;use strict&#39;</span>
-</span><span class="line">
-</span><span class="line"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s">&#39;TestApp.controllers&#39;</span><span class="p">,</span> <span class="p">[]).</span><span class="nx">controller</span> <span class="s">&#39;MainCtrl&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;$scope&#39;</span><span class="p">,</span> <span class="s">&#39;MyObject&#39;</span><span class="p">,</span> <span class="nf">($scope, MyObject) -&gt;</span>
-</span><span class="line">    <span class="nx">MyObject</span><span class="p">.</span><span class="nx">query</span><span class="p">().</span><span class="nx">$then</span> <span class="nf">(objects) -&gt;</span>
-</span><span class="line">        <span class="nv">$scope.objects = </span><span class="nx">objects</span><span class="p">.</span><span class="nx">data</span>
-</span><span class="line"><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="s">&#39;use strict&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s">&#39;TestApp.controllers&#39;</span><span class="p">,</span> <span class="p">[]).</span><span class="nx">controller</span> <span class="s">&#39;MainCtrl&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;$scope&#39;</span><span class="p">,</span> <span class="s">&#39;MyObject&#39;</span><span class="p">,</span> <span class="nf">($scope, MyObject) -&gt;</span>
+</span><span class='line'>    <span class="nx">MyObject</span><span class="p">.</span><span class="nx">query</span><span class="p">().</span><span class="nx">$then</span> <span class="nf">(objects) -&gt;</span>
+</span><span class='line'>        <span class="nv">$scope.objects = </span><span class="nx">objects</span><span class="p">.</span><span class="nx">data</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>This code will inject our factory object inside the main controller. The controller will then query the object and then inject in the <code>$scope</code> the resulting items.</p>
 
 <p>Finally, we can add some super simple code in our main controller view (HTML) to dump the list:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;hero-unit&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">  <span class="nt">&lt;h1&gt;</span>Here&#39;s my list of objects<span class="nt">&lt;/h1&gt;</span>
-</span><span class="line">  <span class="nt">&lt;ul&gt;</span>
-</span><span class="line">      <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">&quot;object in objects&quot;</span><span class="nt">&gt;</span>{{object.name}}<span class="nt">&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;/ul&gt;</span>
-</span><span class="line"><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;hero-unit&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;h1&gt;</span>Here&#39;s my list of objects<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">&quot;object in objects&quot;</span><span class="nt">&gt;</span>{{object.name}}<span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Running the application with a proper Tastypie API, will return you the list of objects name:</p>
 
-<p><a href="/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png"><span class="caption-wrapper center"><img class="caption" src="/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png" width="400" height="168" title="The Yeoman base view - click to zoom" /><span class="caption-text">The Yeoman base view - click to zoom</span></span></a></p>
+<p><a href="/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png"><span class='caption-wrapper center'><img class='caption' src='/images/setting-up-yeoman-and-angular-using-coffeescript/objects.png' width='400' height='168' title='The Yeoman base view - click to zoom'><span class='caption-text'>The Yeoman base view &ndash; click to zoom</span></span></a></p>
 
-<p>This is pretty straightforward and I know that the tests are lacking but <strong>I’M WORKING ON IT</strong> OK??!</p>
+<p><strong> THE WHOLE CODE CAN BE FOUND HERE: <a href="https://github.com/vshjxyz/angulartestapp">https://github.com/vshjxyz/angulartestapp</a> </strong></p>
 
-<p>:) well, I’ll try to update / post more stuff about AngularJS as soon as I discover new ‘things’. Peace out.</p>
+<p>This is pretty straightforward and I know that the tests are lacking but <strong>I&rsquo;M WORKING ON IT</strong> OK??!</p>
+
+<p>:) well, I&rsquo;ll try to update / post more stuff about AngularJS as soon as I discover new &lsquo;things&rsquo;. Peace out.</p>
 
 
 
